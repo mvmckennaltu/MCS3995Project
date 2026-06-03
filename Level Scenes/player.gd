@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var gravity = 15
 @export var jump_impulse = 10
 @export var jump_buffer_time = 0.2
+@export var player_max_health = 99
+var player_health = 99
 var target_velocity = Vector3.ZERO
 var input_direction = Vector2.ZERO
 
