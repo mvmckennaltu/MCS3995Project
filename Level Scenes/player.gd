@@ -2,8 +2,10 @@ extends CharacterBody3D
 @export var run_speed = 7
 @export var gravity = 15
 @export var jump_impulse = 10
+@export var jump_buffer_time = 0.2
 var target_velocity = Vector3.ZERO
 var input_direction = Vector2.ZERO
+
 func _physics_process(delta):
 	var direction = Vector3.ZERO
 	# We check for each move input and update the direction accordingly.
@@ -38,4 +40,7 @@ func _physics_process(delta):
 	print("Input_direction " , direction.x," ", direction.z)
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		target_velocity.y = jump_impulse
+		jump()
+
+func jump():
+	target_velocity.y = jump_impulse

@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://c4tu16fkkqs1g"]
 
 [ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="1_r6dmn"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_e5fqj"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_82ee2"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_xu0r0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnef7"]
 size = Vector3(35, 0.1, 35)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fp2ml"]
 size = Vector3(35, 0.1, 35)
+
+[sub_resource type="Resource" id="Resource_5cai7"]
+script = ExtResource("4_xu0r0")
 
 [node name="TestRoomRoot" type="Node" unique_id=1927464089]
 
@@ -29,4 +35,24 @@ transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0,
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1467729155]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=2126961876]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2.3328023, 3.5154867)
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.49999997, 0, -0.49999997, 0.8660254, 0, 1.5500002, 3.5)
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="CameraPivot/Camera3D" unique_id=1908955472]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_e5fqj")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=2132033233 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.49999997, 0, -0.49999997, 0.8660254, 0, 1.5500002, 3.5)
+top_level = true
+script = ExtResource("3_82ee2")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_5cai7")
+follow_offset = Vector3(0, -2.5, 3.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"

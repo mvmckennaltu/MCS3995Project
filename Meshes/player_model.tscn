@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://s6jkoigct6ib"]
+
+[ext_resource type="PackedScene" uid="uid://ckgq5rncef7qm" path="res://Meshes/character.fbx" id="1_33ch6"]
+
+[sub_resource type="Animation" id="Animation_yk5jq"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4tht"]
+_data = {
+&"Move": SubResource("Animation_yk5jq")
+}
+
+[node name="PlayerModel" unique_id=1201379120 instance=ExtResource("1_33ch6")]
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=856258170]
+libraries/PlayerAnims = SubResource("AnimationLibrary_f4tht")

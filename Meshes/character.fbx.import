@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/character.fbx-5ffa5e5be53514475171ac609846021
 
 [params]
 
-nodes/root_type=""
-nodes/root_name=""
+nodes/root_type="Node"
+nodes/root_name="PlayerModel"
 nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
