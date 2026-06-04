@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dw0s3ny3qnl6p"]
 
-[ext_resource type="Script" uid="uid://djsj5uvu8d0xo" path="res://Level Scenes/player.gd" id="1_4ntmi"]
-[ext_resource type="PackedScene" uid="uid://dd8gmcdudlq7f" path="res://Animations/Player/X Bot.fbx" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://djsj5uvu8d0xo" path="res://Scripts/player.gd" id="1_4ntmi"]
+[ext_resource type="PackedScene" uid="uid://s6jkoigct6ib" path="res://Meshes/player_model.tscn" id="2_4ntmi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r6dmn"]
 
@@ -10,7 +10,7 @@ script = ExtResource("1_4ntmi")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=79168978]
 
-[node name="X Bot" parent="Pivot" unique_id=1819138816 instance=ExtResource("2_4ntmi")]
+[node name="PlayerModel" parent="Pivot" unique_id=1590554490 instance=ExtResource("2_4ntmi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1358222023]
