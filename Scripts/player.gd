@@ -4,6 +4,9 @@ extends CharacterBody3D
 @export var jump_impulse = 10
 @export var jump_buffer_time = 0.2
 @export var player_max_health = 99
+@export var player_turn_speed = 15.0
+@onready var animation_tree = $Pivot/PlayerModel/AnimationTree
+@onready var playback = animation_tree["parameters/playback"]
 var player_health = 99
 var target_velocity = Vector3.ZERO
 var input_direction = Vector2.ZERO
@@ -11,7 +14,8 @@ enum PlayerState {
 	IDLE,
 	RUN,
 	JUMP,
-	FALL
+	FALL,
+	WALK
 }
 var state = PlayerState.IDLE
 func _physics_process(delta):
@@ -22,7 +26,8 @@ func _physics_process(delta):
 	direction.z = input_direction.y
 	if direction != Vector3.ZERO:
 			var facing_dir = direction.normalized()
-			$Pivot.basis = Basis.looking_at(facing_dir)
+			var target_basis = Basis.looking_at(facing_dir)
+			$Pivot.basis = $Pivot.basis.slerp(target_basis, delta * player_turn_speed)
 	# Ground Velocity
 	target_velocity.x = direction.x * run_speed
 	target_velocity.z = direction.z * run_speed
@@ -37,28 +42,31 @@ func _physics_process(delta):
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		jump()
-	if is_on_floor():
-		if input_direction.length() > 0.1:
-			state = PlayerState.RUN
+	if not is_on_floor():
+		if velocity.y > 0:
+			state = PlayerState.JUMP
 		else:
+			state = PlayerState.FALL
+	else:
+		if input_direction.length() > 0.5:
+			state = PlayerState.RUN
+		elif input_direction.length() < 0.001:
 			state = PlayerState.IDLE
+		else:
+			state = PlayerState.WALK
 		
 	match state:
 		PlayerState.IDLE:
-			play_anim("Player/idle")
+			playback.travel("Idle")
 		PlayerState.RUN:
-			play_anim("Player/running")
+			playback.travel("Run")
+		PlayerState.JUMP:
+			playback.travel("Jump")
 		PlayerState.FALL:
-			play_anim("Player/idle")
+			playback.travel("Fall")
+		PlayerState.WALK:
+			playback.travel("Walk")
+	print(state)
 func jump():
 	target_velocity.y = jump_impulse
 	state = PlayerState.JUMP
-	play_anim("Player/jumpup")
-
-func play_anim(anim_name):
-	var anim = $Pivot/PlayerModel/AnimationPlayer
-	if anim.current_animation != anim_name:
-		anim.play(anim_name)
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "Player/jumpup":
-		state = PlayerState.FALL
