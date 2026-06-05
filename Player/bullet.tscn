@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cuwyd17sil1h2"]
+
+[ext_resource type="Script" uid="uid://1auomukfy0e8" path="res://Scripts/bullet.gd" id="1_kxw81"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vouaq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vouaq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kxw81"]
+
+[node name="Node3D" type="Node3D" unique_id=1902234396]
+script = ExtResource("1_kxw81")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=792847891]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1644811984]
+shape = SubResource("SphereShape3D_vouaq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1096760599]
+mesh = SubResource("SphereMesh_vouaq")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=118614042]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=403570868]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+shape = SubResource("SphereShape3D_kxw81")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

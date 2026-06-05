@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://qel8dpr2alsp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7ebqu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sq6qo"]
+
+[node name="Target" type="Node3D" unique_id=1087825669 groups=["targetable"]]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=377615265 groups=["targetable"]]
+collision_layer = 2
+
+[node name="LockOnPoint" type="CollisionShape3D" parent="StaticBody3D" unique_id=805308555 groups=["targetable"]]
+shape = SubResource("SphereShape3D_7ebqu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/LockOnPoint" unique_id=121256984 groups=["targetable"]]
+mesh = SubResource("SphereMesh_sq6qo")

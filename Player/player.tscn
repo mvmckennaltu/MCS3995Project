@@ -7,6 +7,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
+
 [node name="Player" type="CharacterBody3D" unique_id=207529296]
 collision_mask = 14
 script = ExtResource("1_4ntmi")
@@ -15,6 +17,9 @@ script = ExtResource("1_4ntmi")
 
 [node name="PlayerModel" parent="Pivot" unique_id=1590554490 instance=ExtResource("2_4ntmi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+
+[node name="ShootPoint" type="Node3D" parent="Pivot/PlayerModel" unique_id=1714179689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1358222023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
@@ -30,4 +35,13 @@ monitorable = false
 shape = SubResource("CapsuleShape3D_4ntmi")
 debug_color = Color(0.56381637, 0.39401016, 1, 0.41960785)
 
+[node name="TargetingZone" type="Area3D" parent="." unique_id=140861132]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, -4, 0)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetingZone" unique_id=547020378]
+shape = SubResource("SphereShape3D_4ntmi")
+
 [connection signal="area_entered" from="EnemyCollider" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="TargetingZone" to="." method="_on_targeting_zone_body_entered"]
+[connection signal="body_exited" from="TargetingZone" to="." method="_on_targeting_zone_body_exited"]
