@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_82ee2"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_xu0r0"]
 [ext_resource type="Script" uid="uid://boct01xh6abno" path="res://Scripts/UI/health_ui.gd" id="5_82ee2"]
+[ext_resource type="Script" uid="uid://b22yujsan4dv4" path="res://Level Scenes/test_damage.gd" id="5_xu0r0"]
+[ext_resource type="Script" uid="uid://d380v84f5voqr" path="res://Level Scenes/death_barrier.gd" id="7_5cai7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnef7"]
 size = Vector3(35, 0.1, 35)
@@ -15,10 +17,22 @@ size = Vector3(35, 0.1, 35)
 [sub_resource type="Resource" id="Resource_5cai7"]
 script = ExtResource("4_xu0r0")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5cai7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i13gt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mjp2"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.7842989, 0.09000974, 0.32754606, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i13gt"]
+
 [node name="TestRoomRoot" type="Node" unique_id=1927464089]
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=809589257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1109826797]
 shape = SubResource("BoxShape3D_mnef7")
@@ -26,12 +40,61 @@ shape = SubResource("BoxShape3D_mnef7")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1577637655]
 mesh = SubResource("BoxMesh_fp2ml")
 
+[node name="Floor2" type="StaticBody3D" parent="Floor" unique_id=944232149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.31679, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor2" unique_id=35017724]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor2" unique_id=519143066]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
+[node name="Floor3" type="StaticBody3D" parent="Floor" unique_id=1588288109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.840314, 0, -27.090662)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor3" unique_id=887005860]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor3" unique_id=1999265660]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
+[node name="Floor4" type="StaticBody3D" parent="Floor" unique_id=257925660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.514145, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor4" unique_id=1956630958]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor4" unique_id=1547723152]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
+[node name="Floor5" type="StaticBody3D" parent="Floor" unique_id=1168437638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.840314, 0, -37.28803)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor5" unique_id=166419974]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor5" unique_id=312517152]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=174006493]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 13, 0)
 shadow_enabled = true
-
-[node name="Player" parent="." unique_id=207529296 instance=ExtResource("1_r6dmn")]
-transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, 0, 4.05, 0)
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1467729155]
 
@@ -71,3 +134,56 @@ offset_bottom = 23.0
 theme_override_colors/font_color = Color(0.4509804, 0.4509804, 0.4509804, 1)
 text = "Health: 99"
 script = ExtResource("5_82ee2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=482733773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.704308, -0.9450002, 0)
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("5_xu0r0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1519215402]
+transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_5cai7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1684531535]
+transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, -0.004099369, 0)
+mesh = SubResource("BoxMesh_i13gt")
+surface_material_override/0 = SubResource("StandardMaterial3D_1mjp2")
+
+[node name="Area3D" type="Area3D" parent="StaticBody3D" unique_id=1524152912]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D/Area3D" unique_id=1478121168]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_5cai7")
+
+[node name="Player" parent="." unique_id=207529296 instance=ExtResource("1_r6dmn")]
+transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, 0, 4.05, 0)
+
+[node name="RespawnPoint" type="Node3D" parent="." unique_id=402099341]
+transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, -1.2511942, -0.95000005, -1.3968234)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=267121071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9962845, -0.4524697, -2.8380558)
+text = "Max Jump Distance (~9m)"
+font_size = 48
+
+[node name="Label3D2" type="Label3D" parent="." unique_id=28876498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.140888, -0.4524697, -16.239128)
+text = "Max Comfortable Jump Distance (~7m)"
+font_size = 48
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=389153660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.163227, 0)
+script = ExtResource("7_5cai7")
+
+[node name="Death Barrier" type="Area3D" parent="StaticBody3D2" unique_id=1077292352]
+collision_layer = 10
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2/Death Barrier" unique_id=2107634557]
+transform = Transform3D(500, 0, 0, 0, 1, 0, 0, 0, 500, 0, 0, 0)
+shape = SubResource("BoxShape3D_i13gt")
+
+[connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]

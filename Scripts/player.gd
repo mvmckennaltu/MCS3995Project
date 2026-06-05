@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var player_turn_speed = 15.0
 @onready var animation_tree = $Pivot/PlayerModel/AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
+var control_locked = false
 var player_health = 99
 var target_velocity = Vector3.ZERO
 var input_direction = Vector2.ZERO
@@ -17,6 +18,8 @@ enum PlayerState {
 	FALL,
 	WALK
 }
+
+signal health_changed
 var state = PlayerState.IDLE
 func _physics_process(delta):
 	var direction = Vector3.ZERO
@@ -40,7 +43,7 @@ func _physics_process(delta):
 	velocity = target_velocity
 	move_and_slide()
 	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	if is_on_floor() and Input.is_action_just_pressed("jump") and not control_locked:
 		jump()
 	if not is_on_floor():
 		if velocity.y > 0:
@@ -66,7 +69,26 @@ func _physics_process(delta):
 			playback.travel("Fall")
 		PlayerState.WALK:
 			playback.travel("Walk")
-	print(state)
+			
 func jump():
 	target_velocity.y = jump_impulse
 	state = PlayerState.JUMP
+
+func on_hp_changed(change):
+	print("Damage Emitted!")
+	player_health = (player_health + change)
+	print(player_health)
+	health_changed.emit(player_health)
+	if player_health < 0:
+		die()
+	if player_health > player_max_health:
+		player_health = player_max_health
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("Collided") # Replace with function body.
+	var source = area.get_parent()
+	if source.has_method("get_damage"):
+		on_hp_changed(source.get_damage())
+func die():
+	get_tree().reload_current_scene()

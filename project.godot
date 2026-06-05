@@ -95,6 +95,13 @@ switch_target_right={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="enemy"
+3d_physics/layer_3="world"
+3d_physics/layer_4="death_barrier"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

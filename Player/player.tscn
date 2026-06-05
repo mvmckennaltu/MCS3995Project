@@ -5,7 +5,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r6dmn"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
+
 [node name="Player" type="CharacterBody3D" unique_id=207529296]
+collision_mask = 14
 script = ExtResource("1_4ntmi")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=79168978]
@@ -16,3 +19,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1358222023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 shape = SubResource("CapsuleShape3D_r6dmn")
+
+[node name="EnemyCollider" type="Area3D" parent="." unique_id=448440969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+collision_layer = 0
+collision_mask = 10
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyCollider" unique_id=868207547]
+shape = SubResource("CapsuleShape3D_4ntmi")
+debug_color = Color(0.56381637, 0.39401016, 1, 0.41960785)
+
+[connection signal="area_entered" from="EnemyCollider" to="." method="_on_area_3d_area_entered"]
