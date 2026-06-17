@@ -7,14 +7,15 @@ extends CharacterBody3D
 @export var player_turn_speed = 15.0
 @onready var animation_tree = $Pivot/PlayerModel/AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
+@onready var shoot_point = $Pivot/PlayerModel/ShootPoint
 var current_target = null
-var bullet = load("res://Player/bullet.tscn")
+var bullet = load("uid://cuwyd17sil1h2")
 var control_locked = false
 var player_health = 99
 var target_velocity = Vector3.ZERO
 var input_direction = Vector2.ZERO
 var targets : Array[Node3D] = []
-@onready var camera = get_node("/root/TestRoomRoot/CameraPivot/Camera3D")
+@onready var camera = get_viewport().get_camera_3d()
 enum PlayerState {
 	IDLE,
 	RUN,
@@ -81,13 +82,13 @@ func _physics_process(delta):
 		change_crosshair.emit(null)
 	if Input.is_action_just_pressed("shoot") and not control_locked:
 		var bullet_instance = bullet.instantiate()
-		var spawn_pos = $Pivot/PlayerModel/ShootPoint.global_position
+		var spawn_pos = shoot_point.global_position
 		bullet_instance.position = spawn_pos
 		if current_target != null:
 			var target_pos = current_target.global_position
 			bullet_instance.direction = (target_pos - spawn_pos).normalized()
 		else:
-			bullet_instance.direction = $Pivot/PlayerModel/ShootPoint.global_basis.z
+			bullet_instance.direction = shoot_point.global_basis.z
 		get_parent().add_child(bullet_instance)
 	if Input.is_action_just_pressed("switch_target_right"):
 		var new_target = get_lateral_target(true)

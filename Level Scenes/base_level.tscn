@@ -1,58 +1,73 @@
 [gd_scene format=3 uid="uid://cn1cdkfkajfqb"]
 
-[ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="1_7sdvh"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_nrsb3"]
-[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_tpqlc"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_53t2l"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_53t2l"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_lxbb7"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_hxkop"]
+[ext_resource type="Script" uid="uid://boct01xh6abno" path="res://Scripts/UI/health_ui.gd" id="4_clyla"]
+[ext_resource type="Texture2D" uid="uid://babfkhlkclofx" path="res://UI/crosshair.png" id="5_r07n5"]
+[ext_resource type="Script" uid="uid://db5x3frgs0qjp" path="res://Scripts/UI/crosshair.gd" id="6_ecxe8"]
+[ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="7_v03f1"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mnef7"]
-size = Vector3(35, 0.1, 35)
+[sub_resource type="Resource" id="Resource_t1dhe"]
+script = ExtResource("3_hxkop")
 
-[sub_resource type="BoxMesh" id="BoxMesh_fp2ml"]
-size = Vector3(35, 0.1, 35)
+[node name="Node3D" type="Node3D" unique_id=1838970384]
 
-[sub_resource type="Resource" id="Resource_5cai7"]
-script = ExtResource("4_53t2l")
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=445552178]
 
-[node name="TestRoomRoot" type="Node" unique_id=1927464089]
-
-[node name="Floor" type="StaticBody3D" parent="." unique_id=809589257]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1109826797]
-shape = SubResource("BoxShape3D_mnef7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1577637655]
-mesh = SubResource("BoxMesh_fp2ml")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=174006493]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 13, 0)
-shadow_enabled = true
-
-[node name="Player" parent="." unique_id=207529296 instance=ExtResource("1_7sdvh")]
-transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, 0, 4.05, 0)
-
-[node name="CameraPivot" type="Marker3D" parent="." unique_id=1467729155]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=2126961876]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=948034516]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.49999997, 0, -0.49999997, 0.8660254, 0, 1.5500002, 3.5)
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1.5500002, 3.5)
 top_level = true
 
-[node name="PhantomCameraHost" type="Node" parent="CameraPivot/Camera3D" unique_id=1908955472]
+[node name="PhantomCameraHost" type="Node" parent="CameraPivot/Camera3D" unique_id=829516134]
 process_priority = 300
 process_physics_priority = 300
-script = ExtResource("2_nrsb3")
+script = ExtResource("1_53t2l")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=2132033233 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.49999997, 0, -0.49999997, 0.8660254, 0, 1.5500002, 3.5)
+[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=236068585 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1.5500002, 3.5)
 top_level = true
-script = ExtResource("3_tpqlc")
+script = ExtResource("2_lxbb7")
 follow_mode = 2
 follow_target = NodePath("../Player")
-tween_resource = SubResource("Resource_5cai7")
+tween_resource = SubResource("Resource_t1dhe")
 follow_offset = Vector3(0, -2.5, 3.5)
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Control" type="Control" parent="." unique_id=1728100818]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HealthLabel" type="Label" parent="Control" unique_id=1824910021]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.96950084, 0.96950084, 0.9695007, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Health: 99"
+script = ExtResource("4_clyla")
+
+[node name="Crosshair" type="Sprite2D" parent="Control" unique_id=817705714]
+visible = false
+position = Vector2(444, 331)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_r07n5")
+script = ExtResource("6_ecxe8")
+
+[node name="Player" parent="." unique_id=207529296 instance=ExtResource("7_v03f1")]
+transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, 0, 4.05, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=299028302]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -1.3935294, 0)
+use_collision = true
+collision_layer = 4
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1740503359]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 10.828762, 0)
+shadow_enabled = true

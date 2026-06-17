@@ -1,0 +1,26 @@
+[gd_resource type="MeshLibrary" format=3 uid="uid://dihwireu7gxq6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l62d5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l62d5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0dvs4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_of6cs"]
+size = Vector3(1, 0.1, 1)
+
+[resource]
+item/0/name = "Cube"
+item/0/mesh = SubResource("BoxMesh_l62d5")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/mesh_cast_shadow = 1
+item/0/shapes = [SubResource("BoxShape3D_l62d5"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+item/1/name = "Plane"
+item/1/mesh = SubResource("PlaneMesh_0dvs4")
+item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/mesh_cast_shadow = 1
+item/1/shapes = [SubResource("BoxShape3D_of6cs"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/navigation_layers = 1
