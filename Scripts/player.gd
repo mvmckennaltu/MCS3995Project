@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export var player_max_health = 99
 @export var player_turn_speed = 15.0
 @onready var animation_tree = $Pivot/PlayerModel/AnimationTree
+@onready var anim_player = $Pivot/PlayerModel/AnimationPlayer
 @onready var playback = animation_tree["parameters/playback"]
 @onready var shoot_point = $Pivot/PlayerModel/ShootPoint
 var current_target = null
@@ -21,19 +22,25 @@ enum PlayerState {
 	RUN,
 	JUMP,
 	FALL,
-	WALK
+	WALK,
+	DAMAGE
 }
 
 signal health_changed
 signal change_crosshair
 var state = PlayerState.IDLE
+var direction = Vector3.ZERO
+func _ready():
+	pass
 func _physics_process(delta):
-	var direction = Vector3.ZERO
+	direction = Vector3.ZERO
 	# We check for each move input and update the direction accordingly.
+
 	input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", 0.15)
 	direction.x = input_direction.x
 	direction.z = input_direction.y
-	if direction != Vector3.ZERO:
+	
+	if direction != Vector3.ZERO && control_locked == false:
 			var facing_dir = direction.normalized()
 			var target_basis = Basis.looking_at(facing_dir)
 			$Pivot.basis = $Pivot.basis.slerp(target_basis, delta * player_turn_speed)
@@ -41,14 +48,15 @@ func _physics_process(delta):
 	target_velocity.x = direction.x * run_speed
 	target_velocity.z = direction.z * run_speed
 
-	# Vertical Velocity
-	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-		target_velocity.y = target_velocity.y - (gravity * delta)
+	
 
 	# Moving the Character
-	velocity = target_velocity
-	move_and_slide()
+	if not control_locked:
+		velocity = target_velocity
+		move_and_slide()
 	
+	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
+		target_velocity.y = target_velocity.y - (gravity * delta)
 	if is_on_floor() and Input.is_action_just_pressed("jump") and not control_locked:
 		jump()
 	if not is_on_floor():
@@ -57,12 +65,13 @@ func _physics_process(delta):
 		else:
 			state = PlayerState.FALL
 	else:
-		if input_direction.length() > 0.5:
+		if input_direction.length() > 0.5 && control_locked == false:
 			state = PlayerState.RUN
-		elif input_direction.length() < 0.001:
+		elif input_direction.length() < 0.001 && control_locked == false:
 			state = PlayerState.IDLE
 		else:
-			state = PlayerState.WALK
+			if control_locked == false:
+				state = PlayerState.WALK
 		
 	match state:
 		PlayerState.IDLE:
@@ -75,6 +84,8 @@ func _physics_process(delta):
 			playback.travel("Fall")
 		PlayerState.WALK:
 			playback.travel("Walk")
+		PlayerState.DAMAGE:
+			playback.travel("Damage")
 	if current_target != null:
 		var screen_pos = camera.unproject_position(current_target.global_position)
 		change_crosshair.emit(screen_pos)
@@ -118,6 +129,13 @@ func on_hp_changed(change):
 	health_changed.emit(player_health)
 	if player_health < 0:
 		die()
+	else:
+		direction = Vector3.ZERO
+		state = PlayerState.DAMAGE
+		control_locked = true
+		var damage_anim = $Pivot/PlayerModel/AnimationPlayer.get_animation("Player/damage")
+		await get_tree().create_timer(damage_anim.length).timeout
+		control_locked = false
 	if player_health > player_max_health:
 		player_health = player_max_health
 
@@ -151,7 +169,6 @@ func get_closest_target():
 			closest = target
 	return closest
 func get_lateral_target(go_right: bool):
-
 	if current_target == null:
 		return null
 	var best_target = null
