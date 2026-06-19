@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://boct01xh6abno" path="res://Scripts/UI/health_ui.gd" id="4_clyla"]
 [ext_resource type="Texture2D" uid="uid://babfkhlkclofx" path="res://UI/crosshair.png" id="5_r07n5"]
 [ext_resource type="Script" uid="uid://db5x3frgs0qjp" path="res://Scripts/UI/crosshair.gd" id="6_ecxe8"]
+[ext_resource type="PackedScene" uid="uid://cfu60boabltbf" path="res://pause/pause_menu.tscn" id="7_lxbb7"]
 [ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="7_v03f1"]
 
 [sub_resource type="Resource" id="Resource_t1dhe"]
@@ -71,3 +72,5 @@ collision_layer = 4
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1740503359]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 10.828762, 0)
 shadow_enabled = true
+
+[node name="pauseMenu" parent="." unique_id=1985540358 instance=ExtResource("7_lxbb7")]

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bsi4fqqdam1qu"]
+
+[ext_resource type="Script" uid="uid://bgdejoc22xcau" path="res://UI/main_menu.gd" id="1_p8ccj"]
+
+[node name="MainMenu" type="Node2D" unique_id=1943823585]
+script = ExtResource("1_p8ccj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=393788423]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1579361947]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer" unique_id=231558863]
+layout_mode = 2
+offset_transform_enabled = true
+
+[node name="Level1" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1248579442]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level 1 (WIP)"
+
+[node name="TestRoom" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1060639581]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Test Room"
+
+[node name="Exit" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1972977194]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/TestRoom" to="." method="_on_test_room_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

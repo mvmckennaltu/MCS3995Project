@@ -9,7 +9,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
 
-[node name="Player" type="CharacterBody3D" unique_id=207529296]
+[node name="Player" type="CharacterBody3D" unique_id=207529296 groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_4ntmi")
 

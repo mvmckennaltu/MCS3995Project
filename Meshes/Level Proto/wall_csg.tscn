@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ccms8i5i6melk"]
+
+[node name="CSGBox3D3" type="CSGBox3D" unique_id=650151422]
+use_collision = true
+collision_layer = 4
+collision_mask = 7
+size = Vector3(10, 6, 0.2)

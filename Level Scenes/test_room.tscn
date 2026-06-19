@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c4tu16fkkqs1g"]
 
 [ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="1_r6dmn"]
+[ext_resource type="Script" uid="uid://k2tv7mqx3mtf" path="res://Scripts/game_manager.gd" id="1_wx5e8"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_e5fqj"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_82ee2"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_xu0r0"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b22yujsan4dv4" path="res://Level Scenes/test_damage.gd" id="5_xu0r0"]
 [ext_resource type="Script" uid="uid://db5x3frgs0qjp" path="res://Scripts/UI/crosshair.gd" id="6_1mjp2"]
 [ext_resource type="Script" uid="uid://d380v84f5voqr" path="res://Level Scenes/death_barrier.gd" id="7_5cai7"]
+[ext_resource type="PackedScene" uid="uid://cfu60boabltbf" path="res://pause/pause_menu.tscn" id="8_78uxu"]
 [ext_resource type="PackedScene" uid="uid://qel8dpr2alsp" path="res://Player/target.tscn" id="10_eo2un"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnef7"]
@@ -35,6 +37,7 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_i13gt"]
 
 [node name="TestRoomRoot" type="Node" unique_id=1927464089]
+script = ExtResource("1_wx5e8")
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=809589257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -240,6 +243,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.010813, -0.4499998, -5.851
 
 [node name="Target2" parent="." unique_id=577116446 instance=ExtResource("10_eo2un")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7804284, -0.4499998, -5.908948)
+
+[node name="pauseMenu" parent="." unique_id=712621540 instance=ExtResource("8_78uxu")]
 
 [connection signal="change_crosshair" from="Player" to="Control/Crosshair" method="_on_player_change_crosshair"]
 [connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]

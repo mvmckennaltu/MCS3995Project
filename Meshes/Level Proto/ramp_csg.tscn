@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dkn20bd2llr2d"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" unique_id=376129783]
+use_collision = true
+collision_layer = 4
+collision_mask = 7
+polygon = PackedVector2Array(-1, 0, 1, 0, 1, 1)

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://3w84bnkhwlwm"]
+
+[ext_resource type="Script" uid="uid://6dndo8l0m04e" path="res://Scripts/checkpoint.gd" id="1_lt1ge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t1dhe"]
+
+[node name="Checkpoint" type="Node3D" unique_id=784431679]
+script = ExtResource("1_lt1ge")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=993774329]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=711636538]
+transform = Transform3D(10, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+shape = SubResource("BoxShape3D_t1dhe")
+
+[node name="RespawnPoint" type="Node3D" parent="." unique_id=2129105097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

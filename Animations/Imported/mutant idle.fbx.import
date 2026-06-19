@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dds3y2a7p2usp"
-path="res://.godot/imported/Pain Gesture.fbx-c1876d1ba5c20014b58c5c1fc287e2a6.scn"
+uid="uid://gurjgxdrqwoe"
+path="res://.godot/imported/mutant idle.fbx-7794faa826b530d8e654ecb4ebeaeccd.scn"
 
 [deps]
 
-source_file="res://Animations/Player/Pain Gesture.fbx"
-dest_files=["res://.godot/imported/Pain Gesture.fbx-c1876d1ba5c20014b58c5c1fc287e2a6.scn"]
+source_file="res://Animations/Imported/mutant idle.fbx"
+dest_files=["res://.godot/imported/mutant idle.fbx-7794faa826b530d8e654ecb4ebeaeccd.scn"]
 
 [params]
 
@@ -43,9 +43,9 @@ _subresources={
 "animations": {
 "mixamo_com": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Animations/Player/damage.res",
+"save_to_file/fallback_path": "res://Animations/Enemy/enemy_idle.res",
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "uid://dcipmkqch32ug",
+"save_to_file/path": "uid://cnpwobmim8mjv",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,

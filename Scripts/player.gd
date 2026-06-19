@@ -9,6 +9,8 @@ extends CharacterBody3D
 @onready var anim_player = $Pivot/PlayerModel/AnimationPlayer
 @onready var playback = animation_tree["parameters/playback"]
 @onready var shoot_point = $Pivot/PlayerModel/ShootPoint
+@onready var current_checkpoint : Vector3
+@onready var checkpoint_health = 99
 var current_target = null
 var bullet = load("uid://cuwyd17sil1h2")
 var control_locked = false
@@ -59,7 +61,7 @@ func _physics_process(delta):
 		target_velocity.y = target_velocity.y - (gravity * delta)
 	if is_on_floor() and Input.is_action_just_pressed("jump") and not control_locked:
 		jump()
-	if not is_on_floor():
+	if not is_on_floor() && not control_locked:
 		if velocity.y > 0:
 			state = PlayerState.JUMP
 		else:
@@ -67,7 +69,7 @@ func _physics_process(delta):
 	else:
 		if input_direction.length() > 0.5 && control_locked == false:
 			state = PlayerState.RUN
-		elif input_direction.length() < 0.001 && control_locked == false:
+		elif input_direction.length() < 0.001:
 			state = PlayerState.IDLE
 		else:
 			if control_locked == false:
@@ -146,7 +148,19 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	if source.has_method("get_damage"):
 		on_hp_changed(source.get_damage())
 func die():
-	get_tree().reload_current_scene()
+	if current_checkpoint != Vector3.ZERO:
+		control_locked = true
+		velocity = Vector3.ZERO
+		target_velocity = Vector3.ZERO
+		await Fade.fade_out(1.0).finished
+		self.global_position = current_checkpoint
+		state = PlayerState.IDLE
+		player_health = checkpoint_health
+		await get_tree().physics_frame
+		await Fade.fade_in(0.25).finished
+		control_locked = false
+	else:
+		get_tree().reload_current_scene()
 
 
 func _on_targeting_zone_body_entered(body: Node3D) -> void:
@@ -193,3 +207,15 @@ func get_lateral_target(go_right: bool):
 				smallest_angle = abs(angle)
 				best_target = target
 	return best_target
+
+
+func _on_checkpoint_entered_checkpoint(checkpoint_location) -> void:
+	current_checkpoint = checkpoint_location
+	if player_health > 0:
+		checkpoint_health = player_health
+	else:
+		checkpoint_health = player_max_health
+	print("Checkpoint! Location: ", current_checkpoint)
+
+
+	
