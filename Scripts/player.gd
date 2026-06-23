@@ -50,7 +50,7 @@ func _physics_process(delta):
 	target_velocity.x = direction.x * run_speed
 	target_velocity.z = direction.z * run_speed
 
-	
+
 
 	# Moving the Character
 	if not control_locked:
@@ -127,19 +127,20 @@ func jump():
 func on_hp_changed(change):
 	print("Damage Emitted!")
 	player_health = (player_health + change)
+	if player_health > player_max_health:
+		player_health = player_max_health
 	print(player_health)
 	health_changed.emit(player_health)
 	if player_health < 0:
 		die()
-	else:
+	elif change < 0:
 		direction = Vector3.ZERO
 		state = PlayerState.DAMAGE
 		control_locked = true
 		var damage_anim = $Pivot/PlayerModel/AnimationPlayer.get_animation("Player/damage")
-		await get_tree().create_timer(damage_anim.length).timeout
+		await get_tree().create_timer(damage_anim.length)
 		control_locked = false
-	if player_health > player_max_health:
-		player_health = player_max_health
+		
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
