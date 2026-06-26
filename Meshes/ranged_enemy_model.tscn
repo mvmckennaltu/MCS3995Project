@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://cgki7tccgqljj"]
+[gd_scene format=3 uid="uid://chtbbnvw3tf4n"]
 
-[ext_resource type="PackedScene" uid="uid://8m8c5qclcyvo" path="res://Y Bot.fbx" id="1_l17ha"]
+[ext_resource type="PackedScene" uid="uid://8m8c5qclcyvo" path="res://Y Bot.fbx" id="1_ynnxn"]
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ynnxn"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wskqe"]
 
-[node name="EnemyModel" unique_id=547093517 instance=ExtResource("1_l17ha")]
+[node name="EnemyModel" unique_id=547093517 instance=ExtResource("1_ynnxn")]
 
 [node name="Skeleton3D" parent="." index="0" unique_id=1521882200]
 bones/8/rotation = Quaternion(-0.010451819, -0.0010627186, 0.10115047, 0.99481565)
@@ -14,5 +14,5 @@ bones/29/rotation = Quaternion(3.6591703e-06, 8.409115e-10, 0.00022980936, 1)
 bones/52/rotation = Quaternion(-2.0940528e-21, 0, 1.0394375e-05, 1)
 bones/53/rotation = Quaternion(1.0671668e-21, 0, -1.0428465e-05, 1)
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1871134314]
-tree_root = SubResource("AnimationNodeStateMachine_ynnxn")
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1390099809]
+tree_root = SubResource("AnimationNodeStateMachine_wskqe")

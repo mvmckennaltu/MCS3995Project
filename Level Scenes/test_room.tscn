@@ -40,7 +40,7 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="TestRoomRoot" type="Node" unique_id=1927464089]
 script = ExtResource("1_wx5e8")
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=809589257]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=809589257 groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 collision_layer = 4
 collision_mask = 0
@@ -51,7 +51,7 @@ shape = SubResource("BoxShape3D_mnef7")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1577637655]
 mesh = SubResource("BoxMesh_fp2ml")
 
-[node name="Floor2" type="StaticBody3D" parent="Floor" unique_id=944232149]
+[node name="Floor2" type="StaticBody3D" parent="Floor" unique_id=944232149 groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.31679, 0, 0)
 collision_layer = 4
 collision_mask = 0
@@ -64,7 +64,33 @@ shape = SubResource("BoxShape3D_mnef7")
 transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("BoxMesh_fp2ml")
 
-[node name="Floor3" type="StaticBody3D" parent="Floor" unique_id=1588288109]
+[node name="Floor6" type="StaticBody3D" parent="Floor" unique_id=1463500248 groups=["environment"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.68321, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor6" unique_id=817564527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor6" unique_id=1162074106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
+[node name="Floor7" type="StaticBody3D" parent="Floor" unique_id=1970520718 groups=["environment"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.68321, 0.8539653, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor7" unique_id=1736337038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+shape = SubResource("BoxShape3D_mnef7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/Floor7" unique_id=543645339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+mesh = SubResource("BoxMesh_fp2ml")
+
+[node name="Floor3" type="StaticBody3D" parent="Floor" unique_id=1588288109 groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.840314, 0, -27.090662)
 collision_layer = 4
 collision_mask = 0
@@ -77,7 +103,7 @@ shape = SubResource("BoxShape3D_mnef7")
 transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("BoxMesh_fp2ml")
 
-[node name="Floor4" type="StaticBody3D" parent="Floor" unique_id=257925660]
+[node name="Floor4" type="StaticBody3D" parent="Floor" unique_id=257925660 groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.514145, 0, 0)
 collision_layer = 4
 collision_mask = 0
@@ -90,7 +116,7 @@ shape = SubResource("BoxShape3D_mnef7")
 transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("BoxMesh_fp2ml")
 
-[node name="Floor5" type="StaticBody3D" parent="Floor" unique_id=1168437638]
+[node name="Floor5" type="StaticBody3D" parent="Floor" unique_id=1168437638 groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.840314, 0, -37.28803)
 collision_layer = 4
 collision_mask = 0

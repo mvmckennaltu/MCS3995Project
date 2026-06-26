@@ -31,6 +31,9 @@ enabled=PackedStringArray("res://addons/fgi/plugin.cfg", "res://addons/phantom_c
 
 targetable=""
 player=""
+environment=""
+bullet=""
+damaging=""
 
 [input]
 

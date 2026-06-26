@@ -23,6 +23,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Level 1 (WIP)"
 
+[node name="Level2" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=412892458]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level 2 (WIP)"
+
+[node name="Level3" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1247471648]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level 3 (WIP)"
+
 [node name="TestRoom" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1060639581]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -34,5 +44,7 @@ theme_override_font_sizes/font_size = 32
 text = "Exit"
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level3" to="." method="_on_level_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/TestRoom" to="." method="_on_test_room_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

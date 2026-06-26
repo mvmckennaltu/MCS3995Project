@@ -15,5 +15,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		print("collected!")
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().change_scene_to_file(teleport_level)
+		get_tree().call_deferred("change_scene_to_file", teleport_level)
 		

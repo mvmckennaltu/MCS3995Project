@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b7lffmd3rk7rw" path="res://Meshes/Level Proto/floor_csg.tscn" id="8_06udv"]
 [ext_resource type="PackedScene" uid="uid://ccms8i5i6melk" path="res://Meshes/Level Proto/wall_csg.tscn" id="9_dqvwb"]
 [ext_resource type="PackedScene" uid="uid://3w84bnkhwlwm" path="res://Level Scenes/checkpoint.tscn" id="10_20118"]
+[ext_resource type="PackedScene" uid="uid://i0v6ryf3f405" path="res://Enemy/melee_enemy.tscn" id="11_mdwg3"]
 [ext_resource type="Script" uid="uid://d380v84f5voqr" path="res://Level Scenes/death_barrier.gd" id="11_rekwp"]
 [ext_resource type="PackedScene" uid="uid://by86p41m51li6" path="res://Meshes/Level Proto/platform_csg.tscn" id="12_neayj"]
 [ext_resource type="PackedScene" uid="uid://cfu60boabltbf" path="res://pause/pause_menu.tscn" id="15_68h2h"]
@@ -20,6 +21,11 @@
 script = ExtResource("3_dqvwb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_neayj"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_wskqe"]
+vertices = PackedVector3Array(-4.5, 0.4, -4.5, -4.5, 0.4, 4.5, 14.5, 0.4, 4.5, 14.5, 0.4, -4.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 0
 
 [node name="Node3D" type="Node3D" unique_id=1838970384]
 script = ExtResource("1_t1dhe")
@@ -79,11 +85,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 shadow_enabled = true
 
 [node name="CSGStuff" type="Node3D" parent="." unique_id=667494818]
-
-[node name="CSGBox3D" parent="CSGStuff" unique_id=1024934313 instance=ExtResource("8_06udv")]
-
-[node name="CSGBox3D2" parent="CSGStuff" unique_id=1766639893 instance=ExtResource("8_06udv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
 [node name="CSGBox3D3" parent="CSGStuff" unique_id=650151422 instance=ExtResource("9_dqvwb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
@@ -236,6 +237,19 @@ size = Vector3(10, 10, 24)
 [node name="Node3D" parent="." unique_id=651262409 instance=ExtResource("15_mdwg3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 11, -66)
 
+[node name="Enemy" parent="." unique_id=493990742 groups=["targetable"] instance=ExtResource("11_mdwg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=600513655]
+navigation_mesh = SubResource("NavigationMesh_wskqe")
+
+[node name="CSGBox3D" parent="NavigationRegion3D" unique_id=1024934313 instance=ExtResource("8_06udv")]
+
+[node name="CSGBox3D2" parent="NavigationRegion3D" unique_id=1766639893 instance=ExtResource("8_06udv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[connection signal="change_crosshair" from="Player" to="Control/Crosshair" method="_on_player_change_crosshair"]
+[connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]
 [connection signal="entered_checkpoint" from="Checkpoint" to="Player" method="_on_checkpoint_entered_checkpoint"]
 [connection signal="entered_checkpoint" from="Checkpoint2" to="Player" method="_on_checkpoint_entered_checkpoint"]
 [connection signal="entered_checkpoint" from="Checkpoint3" to="Player" method="_on_checkpoint_entered_checkpoint"]

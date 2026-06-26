@@ -1,52 +1,49 @@
-[gd_scene format=3 uid="uid://bgloiscstvhrh"]
+[gd_scene format=3 uid="uid://i0v6ryf3f405"]
 
-[ext_resource type="Script" uid="uid://cbttdi6yaireh" path="res://Enemy/enemy_base.gd" id="1_0kxy1"]
-[ext_resource type="PackedScene" uid="uid://cgki7tccgqljj" path="res://Meshes/enemy_model.tscn" id="2_0kxy1"]
+[ext_resource type="Script" uid="uid://b3e0dhkrw12vt" path="res://Scripts/melee_enemy.gd" id="1_7gxvi"]
+[ext_resource type="PackedScene" uid="uid://de82lmelygp65" path="res://Meshes/melee_enemy_model.tscn" id="2_7gxvi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wskqe"]
-height = 1.7216797
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wskqe"]
+radius = 0.6791992
+height = 1.5438232
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wskqe"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=493990742]
 collision_layer = 2
-collision_mask = 31
-script = ExtResource("1_0kxy1")
+collision_mask = 15
+script = ExtResource("1_7gxvi")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=42802762]
 
-[node name="EnemyModel" parent="Pivot" unique_id=547093517 instance=ExtResource("2_0kxy1")]
+[node name="EnemyModel" parent="Pivot" unique_id=547093517 instance=ExtResource("2_7gxvi")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1629969439]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.7273747, 0)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.88660014, 0)
 shape = SubResource("CapsuleShape3D_wskqe")
+debug_color = Color(0.39529872, 0.50044525, 0.91983634, 0.41960785)
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=420570277]
-
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=822863501]
-tree_root = SubResource("AnimationNodeStateMachine_wskqe")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1526718673]
-root_node = NodePath("../AnimationTree")
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=420570277 groups=["targetable"]]
+avoidance_enabled = true
 
 [node name="EnemyHitbox" type="Area3D" parent="." unique_id=828718455]
 collision_mask = 17
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="EnemyHitbox" unique_id=2141031667]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.7273747, 0)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.9716679, 0)
 shape = SubResource("CapsuleShape3D_wskqe")
+debug_color = Color(0.39529872, 0.50044525, 0.91983634, 0.41960785)
 
 [node name="SightRange" type="Area3D" parent="." unique_id=1365007519]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+collision_layer = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SightRange" unique_id=1992113907]
 shape = SubResource("SphereShape3D_wskqe")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=177421902]
 
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
-[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
 [connection signal="body_entered" from="SightRange" to="." method="_on_sight_range_body_entered"]
 [connection signal="body_exited" from="SightRange" to="." method="_on_sight_range_body_exited"]

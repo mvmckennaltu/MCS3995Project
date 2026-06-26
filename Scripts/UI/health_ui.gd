@@ -7,7 +7,10 @@ func _ready() -> void:
 
 
 
-func _on_player_health_changed(health):
+	
+
+
+func _on_player_health_changed(health) -> void:
 	health_display = health
 	text = "Health: %s" % health_display
 	if health < 0:

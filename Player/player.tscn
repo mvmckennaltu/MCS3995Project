@@ -2,12 +2,27 @@
 
 [ext_resource type="Script" uid="uid://djsj5uvu8d0xo" path="res://Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://s6jkoigct6ib" path="res://Meshes/player_model.tscn" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://bnwlbejem6rgh" path="res://Scripts/ball_mode.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://dxkevvf84yt1e" path="res://Scripts/ball_checker.gd" id="4_gwnis"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ntmi"]
+albedo_color = Color(0.73333335, 0.47058824, 0.44313726, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wskqe"]
+material = SubResource("StandardMaterial3D_4ntmi")
+radius = 0.25
+height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r6dmn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wskqe"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_btcbx"]
+height = 1.5
 
 [node name="Player" type="CharacterBody3D" unique_id=207529296 groups=["player"]]
 collision_mask = 14
@@ -21,9 +36,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 [node name="ShootPoint" type="Node3D" parent="Pivot/PlayerModel" unique_id=1714179689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
 
+[node name="BallMode" type="CharacterBody3D" parent="Pivot" unique_id=1045238823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+visible = false
+collision_mask = 14
+script = ExtResource("3_btcbx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/BallMode" unique_id=873934074]
+mesh = SubResource("SphereMesh_wskqe")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1358222023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 shape = SubResource("CapsuleShape3D_r6dmn")
+debug_color = Color(0.61318547, 0.36339042, 0.99392825, 0.41960785)
 
 [node name="EnemyCollider" type="Area3D" parent="." unique_id=448440969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
@@ -42,6 +67,24 @@ collision_mask = 6
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TargetingZone" unique_id=547020378]
 shape = SubResource("SphereShape3D_4ntmi")
 
+[node name="BallCollider" type="CollisionShape3D" parent="." unique_id=1604463309]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -4.5, 0)
+shape = SubResource("SphereShape3D_wskqe")
+disabled = true
+debug_color = Color(0.62507784, 0.5324995, 1.92523e-07, 0.41960785)
+
+[node name="BallChecker" type="Area3D" parent="." unique_id=2041586650]
+collision_mask = 14
+script = ExtResource("4_gwnis")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BallChecker" unique_id=522343341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.540401, 0)
+shape = SubResource("CapsuleShape3D_btcbx")
+debug_color = Color(0.61318547, 0.36339042, 0.99392825, 0.41960785)
+
 [connection signal="area_entered" from="EnemyCollider" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="TargetingZone" to="." method="_on_targeting_zone_body_entered"]
 [connection signal="body_exited" from="TargetingZone" to="." method="_on_targeting_zone_body_exited"]
+[connection signal="area_entered" from="BallChecker" to="BallChecker" method="_on_area_entered"]
+[connection signal="body_entered" from="BallChecker" to="BallChecker" method="_on_body_entered"]
+[connection signal="body_exited" from="BallChecker" to="BallChecker" method="_on_body_exited"]

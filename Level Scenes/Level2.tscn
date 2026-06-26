@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://dujys586sxf6y"]
+
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_e1n1l"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_v0f88"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_p6rpc"]
+[ext_resource type="Script" uid="uid://boct01xh6abno" path="res://Scripts/UI/health_ui.gd" id="4_3i03c"]
+[ext_resource type="Texture2D" uid="uid://babfkhlkclofx" path="res://UI/crosshair.png" id="5_1bmiq"]
+[ext_resource type="Script" uid="uid://db5x3frgs0qjp" path="res://Scripts/UI/crosshair.gd" id="6_m4gj1"]
+[ext_resource type="PackedScene" uid="uid://dw0s3ny3qnl6p" path="res://Player/player.tscn" id="7_c4r7f"]
+[ext_resource type="PackedScene" uid="uid://cfu60boabltbf" path="res://pause/pause_menu.tscn" id="8_3sn3y"]
+[ext_resource type="PackedScene" uid="uid://b7lffmd3rk7rw" path="res://Meshes/Level Proto/floor_csg.tscn" id="9_1bmiq"]
+[ext_resource type="PackedScene" uid="uid://ccms8i5i6melk" path="res://Meshes/Level Proto/wall_csg.tscn" id="9_v0f88"]
+[ext_resource type="PackedScene" uid="uid://by86p41m51li6" path="res://Meshes/Level Proto/platform_csg.tscn" id="11_m4gj1"]
+[ext_resource type="PackedScene" uid="uid://i0v6ryf3f405" path="res://Enemy/melee_enemy.tscn" id="12_c4r7f"]
+[ext_resource type="PackedScene" uid="uid://b7cich04m4hk0" path="res://Level Scenes/level_exit.tscn" id="13_m4gj1"]
+
+[sub_resource type="Resource" id="Resource_t1dhe"]
+script = ExtResource("3_p6rpc")
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_p6rpc"]
+vertices = PackedVector3Array(36.5, 3.4, -4.5, 36.5, 3.4, 4.5, 45.5, 3.4, 4.5, 45.5, 3.4, -4.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[node name="Node3D" type="Node3D" unique_id=1838970384]
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=445552178]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=948034516]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1.5500002, 3.5)
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="CameraPivot/Camera3D" unique_id=829516134]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_e1n1l")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=236068585 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1.5500002, 3.5)
+top_level = true
+script = ExtResource("2_v0f88")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_t1dhe")
+follow_offset = Vector3(0, -2.5, 3.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Control" type="Control" parent="." unique_id=1728100818]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HealthLabel" type="Label" parent="Control" unique_id=1824910021]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.96950084, 0.96950084, 0.9695007, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Health: 99"
+script = ExtResource("4_3i03c")
+
+[node name="Crosshair" type="Sprite2D" parent="Control" unique_id=817705714]
+visible = false
+position = Vector2(444, 331)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_1bmiq")
+script = ExtResource("6_m4gj1")
+
+[node name="Player" parent="." unique_id=207529296 instance=ExtResource("7_c4r7f")]
+transform = Transform3D(-0.99999845, 0, 0.0017453741, 0, 1, 0, -0.0017453741, 0, -0.99999845, 0, 4.05, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=299028302]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -1.3935294, 0)
+use_collision = true
+collision_layer = 4
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2009188933]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 10, -1.3935294, 0)
+use_collision = true
+collision_layer = 4
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=589578456]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 20, -1.3935294, 0)
+use_collision = true
+collision_layer = 4
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1740503359]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 18.828762, 0)
+shadow_enabled = true
+
+[node name="pauseMenu" parent="." unique_id=1985540358 instance=ExtResource("8_3sn3y")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=2016443116]
+navigation_mesh = SubResource("NavigationMesh_p6rpc")
+
+[node name="CSGBox3D7" parent="NavigationRegion3D" unique_id=1024934313 instance=ExtResource("9_1bmiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 3, 0)
+
+[node name="CSGBox3D3" parent="." unique_id=650151422 instance=ExtResource("9_v0f88")]
+transform = Transform3D(-4.3711417e-08, 0, -46.500004, 0, 1, 0, 1.0000007, 0, -2.0325797e-06, 19, 3, 0)
+
+[node name="CSGBox3D5" parent="." unique_id=1515075460 instance=ExtResource("11_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 2)
+
+[node name="CSGBox3D6" parent="." unique_id=2026045847 instance=ExtResource("11_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 2, 2)
+
+[node name="Enemy" parent="." unique_id=493990742 groups=["targetable"] instance=ExtResource("12_c4r7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 3, -1)
+
+[node name="Enemy2" parent="." unique_id=713959912 groups=["targetable"] instance=ExtResource("12_c4r7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 3, -2)
+
+[node name="Enemy3" parent="." unique_id=1330424969 groups=["targetable"] instance=ExtResource("12_c4r7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 3, 3)
+
+[node name="CSGBox3D7" parent="." unique_id=175926711 instance=ExtResource("11_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 2, -11)
+
+[node name="CSGBox3D8" parent="." unique_id=310690099 instance=ExtResource("11_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 2, -24)
+
+[node name="CSGBox3D9" parent="." unique_id=1701894929 instance=ExtResource("11_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 2, -18)
+
+[node name="LevelExit" parent="." unique_id=651262409 instance=ExtResource("13_m4gj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, -24)
+
+[connection signal="change_crosshair" from="Player" to="Control/Crosshair" method="_on_player_change_crosshair"]
+[connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]

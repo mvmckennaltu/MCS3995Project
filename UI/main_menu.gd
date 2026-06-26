@@ -23,3 +23,11 @@ func _on_test_room_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_level_2_pressed() -> void:
+	get_tree().change_scene_to_file("uid://dujys586sxf6y")
+
+
+func _on_level_3_pressed() -> void:
+	get_tree().change_scene_to_file("uid://c4tu16fkkqs1g")
