@@ -2,17 +2,20 @@ extends EnemyBase
 
 
 @onready var hurtbox = $Hurtbox
+@export var patrol_a : Node3D
+@export var patrol_b : Node3D
 @export var attack_damage = -25
-
+var patrol_target_position : Vector3
+signal searching
 func _ready():
 	animation_tree = $AnimationTree
 	anim_player = $AnimationPlayer
 	nav = $NavigationAgent3D
 	playback = null
 	damage_type = "enemy"
+	patrol_target_position = patrol_a.global_position
 func update_idle(delta):
-	velocity.x = 0
-	velocity.z = 0
+	
 	if player:
 		state = EnemyState.CHASE
 

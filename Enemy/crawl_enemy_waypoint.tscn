@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dnehp2tkaj1wl"]
+
+[ext_resource type="Script" uid="uid://dioea0wfp4usv" path="res://Enemy/crawl_enemy_waypoint.gd" id="1_7k0gt"]
+
+[node name="CrawlEnemyWaypoint" type="Node3D" unique_id=651425106]
+script = ExtResource("1_7k0gt")

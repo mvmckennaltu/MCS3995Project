@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://qel8dpr2alsp" path="res://Player/target.tscn" id="10_eo2un"]
 [ext_resource type="PackedScene" uid="uid://1kbg60a1apc1" path="res://Level Scenes/health_pickup.tscn" id="13_1bhmt"]
 [ext_resource type="PackedScene" uid="uid://bmfecihal5tfu" path="res://Enemy/crawl_enemy.tscn" id="15_gydew"]
+[ext_resource type="PackedScene" uid="uid://dnehp2tkaj1wl" path="res://Enemy/crawl_enemy_waypoint.tscn" id="15_tennn"]
 
 [sub_resource type="Resource" id="Resource_5cai7"]
 script = ExtResource("4_xu0r0")
@@ -286,8 +287,12 @@ shape = SubResource("BoxShape3D_mnef7")
 transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("BoxMesh_fp2ml")
 
-[node name="Enemy2" parent="." unique_id=809702959 groups=["targetable"] instance=ExtResource("15_gydew")]
+[node name="CrawlEnemy" parent="." unique_id=809702959 groups=["targetable"] instance=ExtResource("15_gydew")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.805, 0.61245716, -0.058)
+
+[node name="CrawlEnemyWaypoint" parent="." unique_id=651425106 instance=ExtResource("15_tennn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, 3)
 
 [connection signal="change_crosshair" from="Player" to="Control/Crosshair" method="_on_player_change_crosshair"]
 [connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]
+[connection signal="searching" from="CrawlEnemy" to="CrawlEnemyWaypoint" method="_on_enemy_2_searching"]
