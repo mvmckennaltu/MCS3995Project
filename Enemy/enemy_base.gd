@@ -18,12 +18,19 @@ enum EnemyState {
 @export var run_animation = "Run"
 @export var attack_animation = "Attack"
 @export var death_animation = "Die"
+var damage_type = "enemy"
+signal died
+var dying_started = false
 var state : EnemyState = EnemyState.IDLE
 @onready var playback = animation_tree["parameters/playback"]
 var health = max_health
+var spawn_position
+
+func _ready():
+	spawn_position = global_position
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if !is_on_floor():
+	if !is_on_floor() or !state == EnemyState.DYING:
 		velocity += get_gravity() * delta
 	match state:
 		EnemyState.IDLE:
@@ -42,7 +49,7 @@ func damage(amount):
 	health = health - amount
 	print(health)
 	if health <= 0:
-		state = EnemyState.DYING
+		die()
 	else:
 		state = EnemyState.DAMAGE
 		
@@ -50,7 +57,7 @@ func damage(amount):
 
 
 func _on_sight_range_body_entered(body: Node3D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") && state != EnemyState.DYING:
 		player = body
 		state = EnemyState.CHASE
 func update_chase(delta):
@@ -67,10 +74,8 @@ func update_attack(delta):
 func update_damage(delta):
 	pass
 func update_dying(delta):
-	velocity = Vector3.ZERO
-	$EnemyHitbox.set_deferred("disabled", true)
-	await get_tree().create_timer(5.0).timeout
-	queue_free()
+	pass
+	
 func play_state_animation():
 	match state:
 		EnemyState.IDLE:
@@ -92,10 +97,27 @@ func _on_enemy_hitbox_area_entered(area: Area3D) -> void:
 	print("area entered")
 	if area.is_in_group("bullet"):
 		var source = area.get_parent()
-		if source.has_method("get_damage"):
-			damage(source.get_damage())
+		if source.has_method("get_bullet_damage"):
+			damage(source.get_bullet_damage())
 			source.queue_free()
 
+func die():
+	if state == EnemyState.DYING:
+		state = EnemyState.DYING
+	set_collision_layer_value(2, false)
+	state = EnemyState.DYING
+	$EnemyHitbox.set_collision_mask_value(1,false)
+	$EnemyHitbox/CollisionShape3D2.disabled = true
+	self.set_collision_mask_value(1,false)
+	velocity = Vector3.ZERO
+	nav.target_position = global_position
+	died.emit(self)
+	remove_from_group("targetable")
+	player = null
 
+	
+	await get_tree().create_timer(5.0).timeout
+	queue_free()
+	
 
 	

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b487ivkd72se"]
+
+[ext_resource type="PackedScene" uid="uid://dlphq7equ7spr" path="res://Enemy/crawl/LowPoly_SpiderBot_Rzenn.fbx" id="1_02drx"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dnlfb"]
+
+[node name="LowPoly_SpiderBot_Rzenn" unique_id=751759481 instance=ExtResource("1_02drx")]
+
+[node name="Light" parent="." index="0" unique_id=1989910638]
+light_energy = 1.0
+omni_range = 4099.457
+
+[node name="Neck" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="0" unique_id=1083898482]
+transform = Transform3D(1, 0, 0, 0, -1.1920928e-07, -0.9999999, 0, 0.9999999, -1.1920928e-07, 0, 0, 0)
+bone_idx = 0
+
+[node name="Body" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="1" unique_id=266330003]
+transform = Transform3D(1, 0, 0, 0, -1.1920928e-07, -0.9999999, 0, 0.9999999, -1.1920928e-07, 0, 0, 0)
+bone_idx = 0
+
+[node name="Head" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="2" unique_id=746850110]
+transform = Transform3D(1, 0, 0, 0, -1.1920928e-07, -0.9999999, 0, 0.9999999, -1.1920928e-07, 0, -1.1920928e-09, 0.009999999)
+bone_idx = 1
+
+[node name="Leg_00_FL" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="3" unique_id=1749311875]
+transform = Transform3D(0.82220846, 0.49787304, -0.27585408, 0.017970223, -0.50711095, -0.86169314, -0.5689025, 0.70353436, -0.42589787, 0.007319685, -0.0075833923, -0.00048986165)
+bone_idx = 3
+
+[node name="Leg_01_FL" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="4" unique_id=793364219]
+transform = Transform3D(-0.02871731, 0.41222972, -0.91062707, 0.8774604, -0.42596114, -0.22049874, -0.4787879, -0.8053716, -0.34948277, 0.011187449, -0.011522924, 0.0049755992)
+bone_idx = 4
+
+[node name="Leg_00_FR" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="5" unique_id=1133994796]
+transform = Transform3D(0.82220876, -0.49787292, -0.27585387, -0.53403705, -0.5071108, -0.67649305, 0.19691907, 0.7035346, -0.68283355, -0.007341016, -0.0075833923, -0.0004898628)
+bone_idx = 7
+
+[node name="Leg_01_FR" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="6" unique_id=1415404885]
+transform = Transform3D(-0.02871716, -0.41223004, -0.9106271, 0.8896103, -0.4259614, 0.16477323, -0.45581627, -0.8053715, 0.37895638, -0.01120878, -0.011522921, 0.004975601)
+bone_idx = 8
+
+[node name="Leg_00_BL" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="7" unique_id=640474617]
+transform = Transform3D(0.8099935, 0.49787292, 0.3098924, 0.017970067, 0.5071106, -0.8616935, -0.58616364, 0.70353484, 0.40180936, 0.007319685, 0.007670766, -0.00048986095)
+bone_idx = 11
+
+[node name="Leg_01_BL" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="8" unique_id=914120421]
+transform = Transform3D(-0.405177, 0.4122302, -0.81602585, 0.8774604, 0.42596155, -0.22049884, 0.25669935, -0.8053714, -0.53430533, 0.01118745, 0.011610295, 0.004975604)
+bone_idx = 12
+
+[node name="Leg_00_BR" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="9" unique_id=383570119]
+transform = Transform3D(0.45919025, -0.4978729, -0.7357084, -0.5340374, 0.5071107, -0.67649287, 0.70989305, 0.7035348, -0.033022497, -0.007341016, 0.007670766, -0.00048986095)
+bone_idx = 15
+
+[node name="Leg_01_BR" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(754507088) index="10" unique_id=1202829118]
+transform = Transform3D(0.3529556, -0.41222993, -0.839934, 0.8896103, 0.42596152, 0.1647735, 0.28985494, -0.8053716, 0.5170695, -0.01120878, 0.011610294, 0.0049756025)
+bone_idx = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=2066895221]
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=736806833]
+root_node = NodePath("../AnimationPlayer")
+tree_root = SubResource("AnimationNodeStateMachine_dnlfb")

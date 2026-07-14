@@ -30,4 +30,4 @@ func _on_level_2_pressed() -> void:
 
 
 func _on_level_3_pressed() -> void:
-	get_tree().change_scene_to_file("uid://c4tu16fkkqs1g")
+	get_tree().change_scene_to_file("uid://d3s4ag62gfswb")

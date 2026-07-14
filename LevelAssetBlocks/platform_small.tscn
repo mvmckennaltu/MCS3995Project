@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b5rq631xtsw3e"]
+
+[ext_resource type="PackedScene" uid="uid://xtpuberut402" path="res://LevelAssetBlocks/floor_corner.tscn" id="1_1f7ti"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(4, 0.1, 4)
+
+[node name="platform" type="Node3D" unique_id=601402244]
+
+[node name="floor_corner" parent="." unique_id=457853708 instance=ExtResource("1_1f7ti")]
+collision_layer = 4
+collision_mask = 31
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="floor_corner" unique_id=1014358026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="floor_corner2" parent="." unique_id=1628944156 instance=ExtResource("1_1f7ti")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 0, 2)
+
+[node name="floor_corner3" parent="." unique_id=688491784 instance=ExtResource("1_1f7ti")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 2, 0, 0)
+
+[node name="floor_corner4" parent="." unique_id=1500031167 instance=ExtResource("1_1f7ti")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, 0, 0, 2)

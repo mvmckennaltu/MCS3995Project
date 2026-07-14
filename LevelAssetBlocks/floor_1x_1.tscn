@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://2qlg41vhx2jn"]
+
+[ext_resource type="PackedScene" uid="uid://cemsfg4ynvfkq" path="res://LevelAssets/FloorTile_Basic.fbx" id="1_c8dcq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(2, 0.1, 2)
+
+[node name="floor1x1" type="StaticBody3D" unique_id=194641014]
+
+[node name="FloorTile_Basic" parent="." unique_id=813588907 instance=ExtResource("1_c8dcq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1936597103]
+shape = SubResource("BoxShape3D_wskqe")

@@ -25,15 +25,16 @@ func update_chase(delta):
 	if direction.length() > 0.01:
 		look_at(global_position - direction, Vector3.UP)
 	direction = direction.normalized()
-	
 	velocity.x = direction.x * move_speed
 	velocity.z = direction.z * move_speed
 	if can_attack():
 		state = EnemyState.ATTACK
+		velocity.x = 0
+		velocity.z = 0
 		hurtbox.set_deferred("monitorable", true)
 
 func update_attack(delta):
-	
+
 	if player == null:
 		state = EnemyState.IDLE
 		hurtbox.set_deferred("monitorable", false)
@@ -44,7 +45,7 @@ func update_attack(delta):
 		return
 
 func can_attack() -> bool:
-	return global_position.distance_to(player.global_position) <= attack_range
+	return $EnemyHitbox.global_position.distance_to(player.global_position) <= attack_range
 func _on_navigation_agent_3d_target_reached() -> void:
 	state = EnemyState.ATTACK
 
@@ -53,3 +54,6 @@ func _on_navigation_agent_3d_target_reached() -> void:
 
 func get_damage():
 	return hand_damage
+
+func get_damage_type():
+	return damage_type

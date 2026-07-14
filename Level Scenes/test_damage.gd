@@ -10,3 +10,6 @@ func _ready() -> void:
 
 func get_damage():
 	return damage
+
+func get_damage_type():
+	return "test"

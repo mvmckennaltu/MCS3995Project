@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://82od0rjnjcgm"]
+
+[ext_resource type="PackedScene" uid="uid://ba1ypm3k11n1g" path="res://Enemy/crawl/vorax_nocturnus_animated.glb" id="1_w700b"]
+
+[node name="Sketchfab_Scene" unique_id=922558885 instance=ExtResource("1_w700b")]

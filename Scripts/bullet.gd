@@ -20,5 +20,5 @@ func _physics_process(delta) -> void:
 func _on_area_3d_body_entered(_body: Node3D) -> void:
 	queue_free()
 
-func get_damage():
+func get_bullet_damage():
 	return bullet_damage

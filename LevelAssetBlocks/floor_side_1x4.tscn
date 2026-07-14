@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bs7qul34oixbw"]
+
+[ext_resource type="PackedScene" uid="uid://yswftw5ddpnn" path="res://LevelAssets/FloorTile_Side.fbx" id="1_440nj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(2, 0.1, 8)
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1225702543]
+collision_layer = 4
+collision_mask = 31
+
+[node name="FloorTile_Side" parent="." unique_id=1822769986 instance=ExtResource("1_440nj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=99778030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="FloorTile_Side2" parent="." unique_id=793061463 instance=ExtResource("1_440nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="FloorTile_Side4" parent="." unique_id=302879597 instance=ExtResource("1_440nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="FloorTile_Side3" parent="." unique_id=1575315245 instance=ExtResource("1_440nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)

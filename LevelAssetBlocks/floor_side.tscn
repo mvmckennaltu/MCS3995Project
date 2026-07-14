@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://u3x14one758o"]
+
+[ext_resource type="PackedScene" uid="uid://yswftw5ddpnn" path="res://LevelAssets/FloorTile_Side.fbx" id="1_486au"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(2, 0.1, 2)
+
+[node name="Floor_Side" type="StaticBody3D" unique_id=1225702543]
+collision_layer = 4
+collision_mask = 31
+
+[node name="FloorTile_Side" parent="." unique_id=1822769986 instance=ExtResource("1_486au")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=99778030]
+shape = SubResource("BoxShape3D_wskqe")

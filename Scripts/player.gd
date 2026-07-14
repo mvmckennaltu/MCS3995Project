@@ -28,7 +28,8 @@ enum PlayerState {
 	JUMP,
 	FALL,
 	WALK,
-	DAMAGE
+	DAMAGE,
+	DYING
 }
 enum FormState {
 	NORMAL,
@@ -43,16 +44,17 @@ func _ready():
 	pass
 func _physics_process(delta):
 	direction = Vector3.ZERO
+	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
+		target_velocity.y = target_velocity.y - (gravity * delta)
 	update_movement(delta)
 	handle_targeting()
-	handle_shooting()
+	handle_shooting(delta)
 	update_state()
 	check_ball()
 	if infhealth:
 		player_health = player_max_health
 		health_changed.emit(player_health)
-	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-		target_velocity.y = target_velocity.y - (gravity * delta)
+	
 	if is_on_floor() and Input.is_action_just_pressed("jump") and not control_locked:
 		jump()
 	health_changed.emit(player_health)
@@ -67,17 +69,21 @@ func jump():
 	target_velocity.y = jump_impulse
 	state = PlayerState.JUMP
 
-func on_hp_changed(change):
+func on_hp_changed(change, damage_type):
+	if state == PlayerState.DYING:
+		return
 	print("Damage Emitted!")
 	player_health = (player_health + change)
 	#Health cap
 	if player_health > player_max_health:
 		player_health = player_max_health
 	if player_health < 0:
-		die()
+		state = PlayerState.DYING
+		die(damage_type)
 	elif change < 0:
 		$EnemyCollider.set_deferred("monitoring", false)
-		direction = Vector3.ZERO
+		direction.x = 0
+		direction.z = 0
 		state = PlayerState.DAMAGE
 		print(player_health)
 		control_locked = true
@@ -94,30 +100,38 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	#Gets the parent node of the Area3D
 	var source = area.get_parent()
 	if source.has_method("get_damage"):
-		on_hp_changed(source.get_damage())
+		on_hp_changed(source.get_damage(), source.get_damage_type())
 	elif area.has_method("get_damage"):
-		on_hp_changed(area.get_damage())
-func die():
+		on_hp_changed(area.get_damage(), area.get_damage_type())
+func die(damage_type):
 	#Ensures the checkpoint is the default value of Vector3.ZERO
 	if current_checkpoint != Vector3.ZERO:
 		control_locked = true
 		velocity = Vector3.ZERO
 		target_velocity = Vector3.ZERO
+		if damage_type != "deathbarrier":
+			direction = Vector3.ZERO
+			var dying_anim = anim_player.get_animation("Player/dying")
+			await get_tree().create_timer(dying_anim.length).timeout
 		await Fade.fade_out(1.0).finished
 		self.global_position = current_checkpoint
-		state = PlayerState.IDLE
 		player_health = checkpoint_health
-		await get_tree().physics_frame
+		state = PlayerState.IDLE
+		if can_unmorph && form == FormState.BALL:
+			exit_ball_mode()
 		await Fade.fade_in(0.25).finished
 		control_locked = false
 	else:
 		#Reloads current scene if the player doesn't have a valid checkpoint
-		get_tree().reload_current_scene()
+		var tree = get_tree()
+		tree.call_deferred("reload_current_scene")
 
 
-func _on_targeting_zone_body_entered(body: Node3D) -> void:
+func _on_targeting_zone_body_entered(body: EnemyBase) -> void:
 	if body.is_in_group("targetable"):
 		targets.append(body)
+		if not body.died.is_connected(_on_target_dying):
+			body.died.connect(_on_target_dying)
 		check_closest()
 
 
@@ -126,6 +140,8 @@ func _on_targeting_zone_body_exited(body: Node3D) -> void:
 		targets.erase(body)
 		check_closest()
 func get_closest_target():
+	targets = targets.filter(func(t):
+		return is_instance_valid(t) and t.is_inside_tree() and t.is_in_group("targetable"))
 	var closest = null
 	# Sets the default closest distance to infinite, to ensure the targets are always closer than the default
 	var closest_distance = INF
@@ -180,7 +196,12 @@ func enter_ball_mode() -> void:
 	print("Ball Mode entered")
 func update_movement(delta) -> void:
 	direction = Vector3.ZERO
+	
 	if control_locked:
+		if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
+			target_velocity.y = target_velocity.y - (gravity * delta)
+			velocity.y = target_velocity.y
+			move_and_slide()
 		return
 	# We check for each move input and update the direction accordingly.
 
@@ -199,8 +220,11 @@ func update_movement(delta) -> void:
 		velocity = target_velocity
 		move_and_slide()
 func handle_targeting() -> void:
+	if !is_instance_valid(current_target):
+		current_target = get_closest_target()
 	if current_target != null:
-		var screen_pos = camera.unproject_position(current_target.global_position)
+		var lockon = current_target.get_node("LockOnPoint")
+		var screen_pos = camera.unproject_position(lockon.global_position)
 		change_crosshair.emit(screen_pos)
 	else:
 		change_crosshair.emit(null)
@@ -214,33 +238,45 @@ func handle_targeting() -> void:
 			current_target = new_target
 	if !is_instance_valid(current_target):
 		current_target = get_closest_target()
-func handle_shooting() -> void:
+func handle_shooting(delta) -> void:
 	if Input.is_action_just_pressed("shoot") and not control_locked and form == FormState.NORMAL:
 		var bullet_instance = bullet.instantiate()
 		var spawn_pos = shoot_point.global_position
 		bullet_instance.position = spawn_pos
 		if current_target != null:
-			var target_pos = current_target.global_position
+	
+			var target_pos = current_target.get_node("LockOnPoint").global_position
+			var face_dir = current_target.global_position - global_position
+			face_dir.y = 0
+			var target_basis = Basis.looking_at(face_dir.normalized())
 			
+			if face_dir.length() > 0.001:
+				#pivot.look_at(pivot.global_position - face_dir, Vector3.UP)
+				#pivot.basis = pivot.basis.slerp(target_basis, (delta * (player_turn_speed)))
+				pivot.basis = target_basis
 			bullet_instance.direction = (target_pos - spawn_pos).normalized()
 		else:
 			bullet_instance.direction = shoot_point.global_basis.z
 		get_parent().add_child(bullet_instance)
 func update_state():
+	if state == PlayerState.DYING:
+		state == PlayerState.DYING
+	if state == PlayerState.DAMAGE:
+		state = PlayerState.DAMAGE
 	if not is_on_floor():
 		if velocity.y > 0:
 			state = PlayerState.JUMP
 		else:
 			state = PlayerState.FALL
 	else:
-		if input_direction.length() > 0.5:
+		if input_direction.length() > 0.5 && state != PlayerState.DAMAGE && state != PlayerState.DYING:
 			state = PlayerState.RUN
-		elif input_direction.length() < 0.001:
+		elif input_direction.length() < 0.001 && state != PlayerState.DAMAGE && state != PlayerState.DYING:
 			state = PlayerState.IDLE
 		else:
 			if control_locked == false:
 				state = PlayerState.WALK
-		
+	
 	match state:
 		PlayerState.IDLE:
 			playback.travel("Idle")
@@ -254,6 +290,8 @@ func update_state():
 			playback.travel("Walk")
 		PlayerState.DAMAGE:
 			playback.travel("Damage")
+		PlayerState.DYING:
+			playback.travel("Dying")
 func exit_ball_mode():
 	$Pivot/PlayerModel.visible = true
 	$CollisionShape3D.set_deferred("disabled", false)
@@ -269,3 +307,7 @@ func check_ball():
 			FormState.BALL:
 				if $BallChecker.can_unmorph():
 					exit_ball_mode()
+func _on_target_dying(enemy):
+	targets.erase(enemy)
+	if current_target == enemy:
+		check_closest()

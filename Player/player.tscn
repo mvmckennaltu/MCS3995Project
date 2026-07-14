@@ -24,6 +24,8 @@ height = 0.5
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_btcbx"]
 height = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_gwnis"]
+
 [node name="Player" type="CharacterBody3D" unique_id=207529296 groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_4ntmi")
@@ -81,6 +83,12 @@ script = ExtResource("4_gwnis")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.540401, 0)
 shape = SubResource("CapsuleShape3D_btcbx")
 debug_color = Color(0.61318547, 0.36339042, 0.99392825, 0.41960785)
+
+[node name="LockOnPoint" type="Area3D" parent="." unique_id=1867903076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockOnPoint" unique_id=1585795275]
+shape = SubResource("SphereShape3D_gwnis")
 
 [connection signal="area_entered" from="EnemyCollider" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="TargetingZone" to="." method="_on_targeting_zone_body_entered"]

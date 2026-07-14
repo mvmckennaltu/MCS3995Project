@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b0ecqd5eymjou"]
+
+[ext_resource type="PackedScene" uid="uid://cwudmiqi51f28" path="res://LevelAssets/RoofTile_Empty.fbx" id="1_lhx2f"]
+[ext_resource type="PackedScene" uid="uid://0p16idluf0ie" path="res://LevelAssets/Details/Details_Hexagon.fbx" id="2_trghg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(2, 0.1, 2)
+
+[node name="Roof_Basic" type="StaticBody3D" unique_id=539760749]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 31
+
+[node name="RoofTile_Empty" parent="." unique_id=1224628034 instance=ExtResource("1_lhx2f")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1896829836]
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="Details_Hexagon" parent="." unique_id=490044825 instance=ExtResource("2_trghg")]
+transform = Transform3D(-1, 3.2840564e-15, -8.742278e-08, -8.742277e-08, 4.371139e-08, 1, 0, 1, -4.371139e-08, -5.847772e-09, 0.06689072, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Details_Hexagon" unique_id=1126504120]
+transform = Transform3D(-1, -8.7422755e-08, -6.211762e-22, -8.742276e-08, 1, -8.742278e-08, 1.4748168e-14, -8.742278e-08, -1, 1.4078715e-23, 1.981403e-09, 0.045329213)

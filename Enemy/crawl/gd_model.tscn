@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c4njmi8qn41v"]
+
+[ext_resource type="PackedScene" uid="uid://c7f36snndwinf" path="res://Enemy/crawl/godot_plush_model.glb" id="1_tbcv1"]
+
+[node name="godot_plush_model" unique_id=501487959 instance=ExtResource("1_tbcv1")]
+
+[node name="Skeleton3D" parent="Rig" parent_id_path=PackedInt32Array(556354414) index="0" unique_id=1798768048]
+bones/0/position = Vector3(0.25, 0.79600614, 0)
+bones/0/rotation = Quaternion(2.1337625e-08, -4.7304387e-09, -0.21643963, 0.976296)
+bones/1/rotation = Quaternion(0.021900786, -0.036847856, 0.88838273, -0.45709816)
+bones/2/rotation = Quaternion(0.092104666, 2.1340635e-07, 1.09666935e-07, 0.9957494)
+bones/4/rotation = Quaternion(-0.021900767, -0.0368478, 0.88838273, 0.4570982)
+bones/5/rotation = Quaternion(0.09210445, -2.1216438e-07, -1.8881859e-07, 0.9957494)
+bones/7/position = Vector3(0.25, 0.79600614, 0)
+bones/7/rotation = Quaternion(0.976296, -0.21643963, -4.7304387e-09, 2.1337625e-08)
+bones/8/rotation = Quaternion(-0.22634056, -0.001730483, -0.023765776, 0.9737568)
+bones/9/position = Vector3(1.8540334e-08, 0.15108897, 3.7194045e-08)
+bones/9/rotation = Quaternion(0.3943427, 0.0075192573, -0.0032444492, 0.9189271)
+bones/10/position = Vector3(5.040259e-08, 0.20485394, 2.7786779e-08)
+bones/10/rotation = Quaternion(-0.5484744, 0.044663776, -0.18521939, 0.8141712)
+bones/11/position = Vector3(1.9827793e-09, 0.25122562, -2.3229325e-09)
+bones/11/rotation = Quaternion(-0.0001176067, 0.9324357, -0.36133605, 5.202949e-05)
+bones/12/rotation = Quaternion(0.004409856, -0.0037320196, -0.0536223, 0.99854463)
+bones/13/position = Vector3(-1.6499826e-08, 0.21685915, -1.0902346e-09)
+bones/13/rotation = Quaternion(4.6109605e-09, 0.004010298, -1.6393224e-05, 0.999992)
+bones/14/position = Vector3(-5.626373e-08, 0.27074268, -5.5784914e-09)
+bones/14/rotation = Quaternion(-0.40230924, 0.06508829, -0.1503526, 0.9007247)
+bones/15/position = Vector3(-3.1853926e-08, 0.25128475, -2.4241514e-08)
+bones/15/rotation = Quaternion(2.795336e-05, 0.93238854, -0.36145762, 0.0002562953)

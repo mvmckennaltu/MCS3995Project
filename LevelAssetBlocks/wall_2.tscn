@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d0hg67p212owr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(4, 4.137, 0.75)
+
+[node name="Wall_1" type="StaticBody3D" unique_id=141364881]
+collision_layer = 4
+collision_mask = 31
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1582522324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.081222534, 2.2960815, -0.018571079)
+shape = SubResource("BoxShape3D_wskqe")

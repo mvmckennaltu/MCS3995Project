@@ -17,3 +17,6 @@ func get_damage():
 func destroy_self():
 	visible = false
 	queue_free()
+
+func get_damage_type():
+	return "health"

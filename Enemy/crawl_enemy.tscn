@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bmfecihal5tfu"]
+
+[ext_resource type="Script" uid="uid://d4kuhj6oi0436" path="res://Scripts/crawl_enemy.gd" id="1_dnlfb"]
+[ext_resource type="PackedScene" uid="uid://b487ivkd72se" path="res://Enemy/crawl/spider_enemy.tscn" id="2_dnlfb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tuh1w"]
+size = Vector3(0.8399048, 0.62353516, 0.94628906)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wskqe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wskqe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dnlfb"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=493990742]
+collision_layer = 2
+collision_mask = 30
+script = ExtResource("1_dnlfb")
+attack_range = 2.0
+
+[node name="Pivot" type="Node3D" parent="." unique_id=42802762]
+
+[node name="EnemyModel" parent="Pivot" unique_id=751759481 instance=ExtResource("2_dnlfb")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.0005156994, 0.0032857656, -0.0012843609)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1629969439]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0.0049972534, -0.15612137, 0.033569336)
+shape = SubResource("BoxShape3D_tuh1w")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=420570277]
+avoidance_enabled = true
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=822863501]
+tree_root = SubResource("AnimationNodeStateMachine_wskqe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1526718673]
+root_node = NodePath("../AnimationTree")
+
+[node name="EnemyHitbox" type="Area3D" parent="." unique_id=828718455]
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="EnemyHitbox" unique_id=889330946]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0.0049972534, -0.15612137, 0.033569336)
+shape = SubResource("BoxShape3D_tuh1w")
+
+[node name="SightRange" type="Area3D" parent="." unique_id=1365007519]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SightRange" unique_id=1992113907]
+shape = SubResource("SphereShape3D_wskqe")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=177421902]
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=163957454]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Hurtbox" unique_id=1576083657]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0.0049972534, -0.15612137, 0.033569336)
+shape = SubResource("BoxShape3D_tuh1w")
+
+[node name="LockOnPoint" type="Area3D" parent="." unique_id=1177060595 groups=["targetable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09536344, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockOnPoint" unique_id=109884592]
+shape = SubResource("SphereShape3D_dnlfb")
+
+[connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
+[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_entered" from="SightRange" to="." method="_on_sight_range_body_entered"]
+[connection signal="body_exited" from="SightRange" to="." method="_on_sight_range_body_exited"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_enemy_hitbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_enemy_hitbox_body_entered"]

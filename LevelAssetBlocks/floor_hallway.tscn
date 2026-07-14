@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://2vhphjkp0gm7"]
+
+[ext_resource type="PackedScene" uid="uid://dgyfox1pakohx" path="res://LevelAssets/FloorTile_Double_Hallway.fbx" id="1_8ghjc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(4, 0.1, 2)
+
+[node name="Floor_Hallway" type="StaticBody3D" unique_id=544604659]
+collision_layer = 4
+collision_mask = 31
+
+[node name="FloorTile_Double_Hallway" parent="." unique_id=2050996218 instance=ExtResource("1_8ghjc")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1774146633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_wskqe")

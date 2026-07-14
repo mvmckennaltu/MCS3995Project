@@ -4,22 +4,26 @@
 [ext_resource type="PackedScene" uid="uid://de82lmelygp65" path="res://Meshes/melee_enemy_model.tscn" id="2_7gxvi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wskqe"]
-radius = 0.6791992
-height = 1.5438232
+radius = 0.40625
+height = 1.437969
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wskqe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ihg6t"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=493990742]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_7gxvi")
+move_speed = 2.5
+attack_range = 5.1
 
 [node name="Pivot" type="Node3D" parent="." unique_id=42802762]
 
 [node name="EnemyModel" parent="Pivot" unique_id=547093517 instance=ExtResource("2_7gxvi")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1629969439]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.88660014, 0)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.85294425, 0)
 shape = SubResource("CapsuleShape3D_wskqe")
 debug_color = Color(0.39529872, 0.50044525, 0.91983634, 0.41960785)
 
@@ -42,6 +46,12 @@ collision_layer = 0
 shape = SubResource("SphereShape3D_wskqe")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=177421902]
+
+[node name="LockOnPoint" type="Area3D" parent="." unique_id=1753605767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9911669, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockOnPoint" unique_id=804875740]
+shape = SubResource("SphereShape3D_ihg6t")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
