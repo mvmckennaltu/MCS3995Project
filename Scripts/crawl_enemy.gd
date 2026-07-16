@@ -13,7 +13,7 @@ func _ready():
 	nav = $NavigationAgent3D
 	playback = null
 	damage_type = "enemy"
-	patrol_target_position = patrol_a.global_position
+	#patrol_target_position = patrol_a.global_position
 func update_idle(delta):
 	
 	if player:

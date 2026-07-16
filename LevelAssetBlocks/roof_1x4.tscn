@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ccscc3pbqd6ht"]
+
+[ext_resource type="PackedScene" uid="uid://cwudmiqi51f28" path="res://LevelAssets/RoofTile_Empty.fbx" id="1_uww8g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wskqe"]
+size = Vector3(2, 0.1, 2)
+
+[node name="Roof_1x4" type="StaticBody3D" unique_id=539760749]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 31
+
+[node name="RoofTile_Empty" parent="." unique_id=1224628034 instance=ExtResource("1_uww8g")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1896829836]
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="RoofTile_Empty6" parent="." unique_id=2038426559 instance=ExtResource("1_uww8g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3.496911e-07, 0)
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=428605743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3.496911e-07, 0)
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="RoofTile_Empty7" parent="." unique_id=446811366 instance=ExtResource("1_uww8g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5.2453663e-07, 0)
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="." unique_id=1606746294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5.2453663e-07, 0)
+shape = SubResource("BoxShape3D_wskqe")
+
+[node name="RoofTile_Empty2" parent="." unique_id=544743598 instance=ExtResource("1_uww8g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.7484555e-07, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=400722552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.7484555e-07, 0)
+shape = SubResource("BoxShape3D_wskqe")
