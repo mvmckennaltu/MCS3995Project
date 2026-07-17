@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bsi4fqqdam1qu"]
 
 [ext_resource type="Script" uid="uid://bgdejoc22xcau" path="res://UI/main_menu.gd" id="1_p8ccj"]
+[ext_resource type="FontFile" uid="uid://by70a5kimfsj8" path="res://UI/Pixelzone.ttf" id="2_d8nwk"]
+[ext_resource type="Texture2D" uid="uid://bpglqvr8mf2pu" path="res://UI/344034.png" id="2_tk8dj"]
+
+[sub_resource type="Theme" id="Theme_wskqe"]
+default_font = ExtResource("2_d8nwk")
 
 [node name="MainMenu" type="Node2D" unique_id=1943823585]
 script = ExtResource("1_p8ccj")
@@ -20,28 +25,57 @@ offset_transform_enabled = true
 
 [node name="Level1" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1248579442]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Level 1 (WIP)"
+theme = SubResource("Theme_wskqe")
+theme_override_font_sizes/font_size = 64
+text = "Level 1"
 
 [node name="Level2" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=412892458]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_d8nwk")
+theme_override_font_sizes/font_size = 64
 text = "Level 2 (WIP)"
 
 [node name="Level3" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1247471648]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_d8nwk")
+theme_override_font_sizes/font_size = 64
 text = "Level 3 (WIP)"
 
 [node name="TestRoom" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1060639581]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_d8nwk")
+theme_override_font_sizes/font_size = 64
 text = "Test Room"
 
 [node name="Exit" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1972977194]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_d8nwk")
+theme_override_font_sizes/font_size = 64
 text = "Exit"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer" unique_id=1583914003]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.0
+offset_top = 50.0
+offset_right = -39.0
+offset_bottom = 90.0
+grow_horizontal = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(75, 0)
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer2" unique_id=1653780596]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98039216, 0.16470589, 0.9647059, 1)
+theme_override_fonts/font = ExtResource("2_d8nwk")
+theme_override_font_sizes/font_size = 96
+text = "Unnamed 3D Action Game"
+horizontal_alignment = 1
+
+[node name="344034" type="Sprite2D" parent="." unique_id=1700122694]
+position = Vector2(594, 302)
+texture = ExtResource("2_tk8dj")
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level2" to="." method="_on_level_2_pressed"]

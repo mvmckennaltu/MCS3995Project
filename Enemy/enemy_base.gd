@@ -44,7 +44,8 @@ func _physics_process(delta: float) -> void:
 		EnemyState.DYING:
 			update_dying(delta)
 	play_state_animation()
-	move_and_slide()
+	if state != EnemyState.DYING:
+		move_and_slide()
 func damage(amount):
 	health = health - amount
 	print(health)
@@ -63,12 +64,13 @@ func _on_sight_range_body_entered(body: Node3D) -> void:
 func update_chase(delta):
 	pass
 func update_idle(delta):
-	velocity.x = 0
-	velocity.z = 0
-	if player:
-		$RayCast3D.look_at(player.global_position)
-		if $RayCast3D.get_collider() == player:
-			state = EnemyState.CHASE
+	if state != EnemyState.DYING:
+		velocity.x = 0
+		velocity.z = 0
+		if player:
+			$RayCast3D.look_at(player.global_position)
+			if $RayCast3D.get_collider() == player:
+				state = EnemyState.CHASE
 func update_attack(delta):
 	pass
 func update_damage(delta):
@@ -91,6 +93,8 @@ func play_state_animation():
 func _on_sight_range_body_exited(body: Node3D) -> void:
 	if body == player:
 		player = null
+		velocity.x = 0
+		velocity.z = 0
 		state = EnemyState.IDLE
 
 func _on_enemy_hitbox_area_entered(area: Area3D) -> void:
@@ -102,14 +106,16 @@ func _on_enemy_hitbox_area_entered(area: Area3D) -> void:
 			source.queue_free()
 
 func die():
+	
 	if state == EnemyState.DYING:
 		state = EnemyState.DYING
+	
 	set_collision_layer_value(2, false)
 	state = EnemyState.DYING
 	$EnemyHitbox.set_collision_mask_value(1,false)
 	$EnemyHitbox/CollisionShape3D2.disabled = true
 	self.set_collision_mask_value(1,false)
-	velocity = Vector3.ZERO
+	
 	nav.target_position = global_position
 	died.emit(self)
 	remove_from_group("targetable")

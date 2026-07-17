@@ -2,8 +2,13 @@
 
 [ext_resource type="Script" uid="uid://djsj5uvu8d0xo" path="res://Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://s6jkoigct6ib" path="res://Meshes/player_model.tscn" id="2_4ntmi"]
+[ext_resource type="AudioStream" uid="uid://b667m5nhouy22" path="res://Audio/Player/JDSherbert - Footstep Foley SFX Pack - Footstep (Metal - 1).wav" id="2_k53q1"]
+[ext_resource type="AudioStream" uid="uid://dqsuts1supocj" path="res://Audio/Player/Player_Jump.wav" id="3_00tjw"]
 [ext_resource type="Script" uid="uid://bnwlbejem6rgh" path="res://Scripts/ball_mode.gd" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://dxkevvf84yt1e" path="res://Scripts/ball_checker.gd" id="4_gwnis"]
+[ext_resource type="AudioStream" uid="uid://8ixj2soe2lst" path="res://Audio/Player/Player_Shoot.wav" id="4_x3vf3"]
+[ext_resource type="AudioStream" uid="uid://b8iqmcleu27sv" path="res://Audio/Player/Player_Damage.wav" id="5_apopc"]
+[ext_resource type="AudioStream" uid="uid://dma28dmpvkwbl" path="res://Audio/Player/Player_Morph.wav" id="6_5htga"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ntmi"]
 albedo_color = Color(0.73333335, 0.47058824, 0.44313726, 1)
@@ -29,6 +34,31 @@ height = 1.5
 [node name="Player" type="CharacterBody3D" unique_id=207529296 groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_4ntmi")
+
+[node name="WalkPlayer" type="AudioStreamPlayer3D" parent="." unique_id=282261416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+stream = ExtResource("2_k53q1")
+volume_db = -6.0
+
+[node name="JumpPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1442130661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+stream = ExtResource("3_00tjw")
+volume_db = -6.0
+
+[node name="ShootPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1152919594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+stream = ExtResource("4_x3vf3")
+volume_db = -6.0
+
+[node name="DamagePlayer" type="AudioStreamPlayer3D" parent="." unique_id=933895999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+stream = ExtResource("5_apopc")
+volume_db = -6.0
+
+[node name="MorphPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1324944369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9268706, 0)
+stream = ExtResource("6_5htga")
+volume_db = -6.0
 
 [node name="Pivot" type="Node3D" parent="." unique_id=79168978]
 

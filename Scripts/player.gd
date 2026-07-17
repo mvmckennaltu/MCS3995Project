@@ -13,6 +13,13 @@ extends CharacterBody3D
 @onready var current_checkpoint : Vector3
 @onready var checkpoint_health = 99
 @onready var pivot = $Pivot
+@onready var walk_player = $WalkPlayer
+@onready var jump_player = $JumpPlayer
+@onready var shoot_player = $ShootPlayer
+@onready var morph_player = $MorphPlayer
+@onready var damage_player = $DamagePlayer
+@onready var walk_sound : AudioStream = preload("uid://b667m5nhouy22")
+var footstep_timer := 0.0
 var can_unmorph = true
 var current_target = null
 var bullet = load("uid://cuwyd17sil1h2")
@@ -51,6 +58,7 @@ func _physics_process(delta):
 	handle_shooting(delta)
 	update_state()
 	check_ball()
+	update_sounds(delta)
 	if infhealth:
 		player_health = player_max_health
 		health_changed.emit(player_health)
@@ -58,6 +66,7 @@ func _physics_process(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump") and not control_locked:
 		jump()
 	health_changed.emit(player_health)
+	
 func check_closest():
 	current_target = get_closest_target()
 	# Debug output for targeting
@@ -68,6 +77,7 @@ func check_closest():
 func jump():
 	target_velocity.y = jump_impulse
 	state = PlayerState.JUMP
+	jump_player.play()
 
 func on_hp_changed(change, damage_type):
 	if state == PlayerState.DYING:
@@ -89,6 +99,7 @@ func on_hp_changed(change, damage_type):
 		control_locked = true
 		#Gets the damage animation for the timer
 		var damage_anim = anim_player.get_animation("Player/damage")
+		damage_player.play()
 		await get_tree().create_timer(damage_anim.length).timeout
 		control_locked = false
 		await get_tree().create_timer(0.5).timeout
@@ -258,6 +269,7 @@ func handle_shooting(delta) -> void:
 		else:
 			bullet_instance.direction = shoot_point.global_basis.z
 		get_parent().add_child(bullet_instance)
+		shoot_player.play()
 func update_state():
 	if state == PlayerState.DYING:
 		state == PlayerState.DYING
@@ -304,10 +316,22 @@ func check_ball():
 		match form:
 			FormState.NORMAL:
 				enter_ball_mode()
+				morph_player.play()
+				
 			FormState.BALL:
 				if $BallChecker.can_unmorph():
+					morph_player.play()
 					exit_ball_mode()
 func _on_target_dying(enemy):
 	targets.erase(enemy)
 	if current_target == enemy:
 		check_closest()
+
+func update_sounds(delta):
+	if (state == PlayerState.RUN or state == PlayerState.WALK) and form != FormState.BALL:
+		footstep_timer -= delta
+		if footstep_timer <= 0.0:
+			walk_player.play()
+			footstep_timer = 0.4
+	else:
+		footstep_timer = 0.0

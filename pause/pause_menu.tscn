@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cfu60boabltbf"]
 
 [ext_resource type="Script" uid="uid://cwh4b7pvgjpec" path="res://pause/scripts/pause_menu.gd" id="1_7gexk"]
+[ext_resource type="FontFile" uid="uid://by70a5kimfsj8" path="res://UI/Pixelzone.ttf" id="2_8pr2g"]
 
 [node name="pauseMenu" type="Control" unique_id=1576040450 node_paths=PackedStringArray("children", "exitButton", "resumeButton")]
 layout_mode = 3
@@ -34,21 +35,24 @@ layout_mode = 2
 
 [node name="Resume" type="Button" parent="MarginContainer/VBoxContainer" unique_id=945486585]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_8pr2g")
+theme_override_font_sizes/font_size = 92
 action_mode = 0
 text = "Resume
 "
 
 [node name="Menu" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2075355411]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_8pr2g")
+theme_override_font_sizes/font_size = 92
 action_mode = 0
 text = "Menu
 "
 
 [node name="Exit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1768184205]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_8pr2g")
+theme_override_font_sizes/font_size = 92
 action_mode = 0
 text = "Exit
 "

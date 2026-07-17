@@ -9,40 +9,40 @@ const GRID_SHADER := preload("res://addons/infinite_grid/infinite_grid_2d.gdshad
 @export var follow_viewport_camera := true
 @export var grid_origin := Vector2.ZERO:
   set(value):
-    grid_origin = value
-    _set_shader_parameter(&"grid_origin", grid_origin)
+	grid_origin = value
+	_set_shader_parameter(&"grid_origin", grid_origin)
 @export var cell_size := 10.0:
   set(value):
-    cell_size = maxf(value, 0.0001)
-    _set_shader_parameter(&"cell_size", cell_size)
+	cell_size = maxf(value, 0.0001)
+	_set_shader_parameter(&"cell_size", cell_size)
 @export var min_pixels_between_cells := 2.0:
   set(value):
-    min_pixels_between_cells = maxf(value, 0.1)
-    _set_shader_parameter(&"min_pixels_between_cells", min_pixels_between_cells)
+	min_pixels_between_cells = maxf(value, 0.1)
+	_set_shader_parameter(&"min_pixels_between_cells", min_pixels_between_cells)
 @export var line_width_pixels := 1.0:
   set(value):
-    line_width_pixels = maxf(value, 0.25)
-    _set_shader_parameter(&"line_width_pixels", line_width_pixels)
+	line_width_pixels = maxf(value, 0.25)
+	_set_shader_parameter(&"line_width_pixels", line_width_pixels)
 @export var lod_finer_levels := 3:
   set(value):
-    lod_finer_levels = maxi(value, 0)
-    _apply_lod_range_parameters()
+	lod_finer_levels = maxi(value, 0)
+	_apply_lod_range_parameters()
 @export var lod_total_levels := 8:
   set(value):
-    lod_total_levels = maxi(value, 3)
-    _apply_lod_range_parameters()
+	lod_total_levels = maxi(value, 3)
+	_apply_lod_range_parameters()
 @export var thin_line_color := Color(0.30, 0.30, 0.30, 0.50):
   set(value):
-    thin_line_color = value
-    _set_shader_parameter(&"thin_line_color", thin_line_color)
+	thin_line_color = value
+	_set_shader_parameter(&"thin_line_color", thin_line_color)
 @export var thick_line_color := Color(0.42, 0.42, 0.42, 0.70):
   set(value):
-    thick_line_color = value
-    _set_shader_parameter(&"thick_line_color", thick_line_color)
+	thick_line_color = value
+	_set_shader_parameter(&"thick_line_color", thick_line_color)
 @export var debug_lod_colors := false:
   set(value):
-    debug_lod_colors = value
-    _set_shader_parameter(&"debug_lod_colors", debug_lod_colors)
+	debug_lod_colors = value
+	_set_shader_parameter(&"debug_lod_colors", debug_lod_colors)
 
 var _shader_material: ShaderMaterial
 var _last_viewport_size := Vector2.ZERO
@@ -78,7 +78,7 @@ func set_camera_state(camera_position: Vector2, camera_zoom: Vector2, camera_rot
 func _ensure_shader_material() -> void:
   _shader_material = material as ShaderMaterial
   if _shader_material != null:
-    return
+	return
 
   _shader_material = ShaderMaterial.new()
   _shader_material.shader = GRID_SHADER
@@ -87,7 +87,7 @@ func _ensure_shader_material() -> void:
 
 func _apply_shader_parameters() -> void:
   if _shader_material == null:
-    return
+	return
 
   _shader_material.set_shader_parameter("grid_origin", grid_origin)
   _shader_material.set_shader_parameter("cell_size", cell_size)
@@ -101,7 +101,7 @@ func _apply_shader_parameters() -> void:
 
 func _apply_lod_range_parameters() -> void:
   if _shader_material == null:
-    return
+	return
 
   var min_lod_power := -float(maxi(lod_finer_levels, 0))
   var max_lod_power := min_lod_power + float(maxi(lod_total_levels, 3) - 1)
@@ -112,7 +112,7 @@ func _apply_lod_range_parameters() -> void:
 func _update_viewport_size(force: bool) -> void:
   var viewport_size := get_viewport_rect().size
   if not force and viewport_size.is_equal_approx(_last_viewport_size):
-    return
+	return
 
   _last_viewport_size = viewport_size
   _set_shader_parameter(&"viewport_size", viewport_size)
@@ -120,24 +120,24 @@ func _update_viewport_size(force: bool) -> void:
 
 func _update_camera_parameters(force: bool) -> void:
   if not follow_viewport_camera:
-    return
+	return
 
   var camera := get_viewport().get_camera_2d()
   if camera == null:
-    _set_camera_parameters(Vector2.ZERO, Vector2.ONE, 0.0, force)
-    return
+	_set_camera_parameters(Vector2.ZERO, Vector2.ONE, 0.0, force)
+	return
 
   _set_camera_parameters(camera.get_screen_center_position(), camera.zoom, camera.global_rotation, force)
 
 
 func _set_camera_parameters(camera_position: Vector2, camera_zoom: Vector2, camera_rotation: float, force: bool) -> void:
   if (
-      not force and
-      camera_position.is_equal_approx(_last_camera_position) and
-      camera_zoom.is_equal_approx(_last_camera_zoom) and
-      is_equal_approx(camera_rotation, _last_camera_rotation)
+	  not force and
+	  camera_position.is_equal_approx(_last_camera_position) and
+	  camera_zoom.is_equal_approx(_last_camera_zoom) and
+	  is_equal_approx(camera_rotation, _last_camera_rotation)
   ):
-    return
+	return
 
   _last_camera_position = camera_position
   _last_camera_zoom = camera_zoom
@@ -149,6 +149,6 @@ func _set_camera_parameters(camera_position: Vector2, camera_zoom: Vector2, came
 
 func _set_shader_parameter(parameter_name: StringName, value: Variant) -> void:
   if _shader_material == null:
-    return
+	return
 
   _shader_material.set_shader_parameter(parameter_name, value)

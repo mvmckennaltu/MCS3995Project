@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://buopdq235uinm"
+path="res://.godot/imported/_ mid metallic drone_120bpm4-4_L19M-LOOP.wav-f30dc142d45f1f1c7ac3f8c48a623894.sample"
+
+[deps]
+
+source_file="res://Audio/Ambience/_ mid metallic drone_120bpm4-4_L19M-LOOP.wav"
+dest_files=["res://.godot/imported/_ mid metallic drone_120bpm4-4_L19M-LOOP.wav-f30dc142d45f1f1c7ac3f8c48a623894.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
