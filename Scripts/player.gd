@@ -19,6 +19,7 @@ extends CharacterBody3D
 @onready var morph_player = $MorphPlayer
 @onready var damage_player = $DamagePlayer
 @onready var walk_sound : AudioStream = preload("uid://b667m5nhouy22")
+
 var footstep_timer := 0.0
 var can_unmorph = true
 var current_target = null

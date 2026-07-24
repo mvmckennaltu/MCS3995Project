@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bw48od8a0d14r" path="res://Enemy/ranged_enemy.gd" id="1_cnthi"]
 [ext_resource type="PackedScene" uid="uid://chtbbnvw3tf4n" path="res://Meshes/ranged_enemy_model.tscn" id="2_cnthi"]
+[ext_resource type="AudioStream" uid="uid://vhvud7xyj6h0" path="res://Audio/Enemy/Ranged_Die.wav" id="3_v8y6n"]
+[ext_resource type="AudioStream" uid="uid://c2cd6sscd7hgy" path="res://Audio/Enemy/Ranged_Shoot.wav" id="4_sk3bh"]
+[ext_resource type="AudioStream" uid="uid://dev537ypdhdm3" path="res://Audio/Enemy/Ranged_Sight.wav" id="5_6smww"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wskqe"]
 height = 1.4912109
@@ -49,6 +52,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9911669, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LockOnPoint" unique_id=2087922202]
 shape = SubResource("SphereShape3D_cnthi")
+
+[node name="DiePlayer" type="AudioStreamPlayer3D" parent="." unique_id=443901940]
+stream = ExtResource("3_v8y6n")
+
+[node name="ShootPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1627015549]
+stream = ExtResource("4_sk3bh")
+
+[node name="SightPlayer" type="AudioStreamPlayer3D" parent="." unique_id=2121437926]
+stream = ExtResource("5_6smww")
 
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
 [connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]

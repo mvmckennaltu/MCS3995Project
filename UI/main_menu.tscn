@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bgdejoc22xcau" path="res://UI/main_menu.gd" id="1_p8ccj"]
 [ext_resource type="FontFile" uid="uid://by70a5kimfsj8" path="res://UI/Pixelzone.ttf" id="2_d8nwk"]
 [ext_resource type="Texture2D" uid="uid://bpglqvr8mf2pu" path="res://UI/344034.png" id="2_tk8dj"]
+[ext_resource type="AudioStream" uid="uid://cxioc5gto61fs" path="res://Audio/Music/Spellbound.mp3" id="4_4cwpn"]
 
 [sub_resource type="Theme" id="Theme_wskqe"]
 default_font = ExtResource("2_d8nwk")
@@ -76,6 +77,12 @@ horizontal_alignment = 1
 [node name="344034" type="Sprite2D" parent="." unique_id=1700122694]
 position = Vector2(594, 302)
 texture = ExtResource("2_tk8dj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1829165912]
+stream = ExtResource("4_4cwpn")
+volume_db = -0.137
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Level2" to="." method="_on_level_2_pressed"]

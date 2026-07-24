@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b3e0dhkrw12vt" path="res://Scripts/melee_enemy.gd" id="1_7gxvi"]
 [ext_resource type="PackedScene" uid="uid://de82lmelygp65" path="res://Meshes/melee_enemy_model.tscn" id="2_7gxvi"]
+[ext_resource type="AudioStream" uid="uid://b2xj5b4vg2w3b" path="res://Audio/Enemy/Melee-Sight.wav" id="3_skqvj"]
+[ext_resource type="AudioStream" uid="uid://pwxo5xqa4agx" path="res://Audio/Enemy/Melee_die.wav" id="4_kd7fg"]
+[ext_resource type="AudioStream" uid="uid://dmj548nebdiyo" path="res://Audio/Enemy/Melee_attack.wav" id="5_6qs4v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wskqe"]
 radius = 0.40625
@@ -52,6 +55,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9911669, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LockOnPoint" unique_id=804875740]
 shape = SubResource("SphereShape3D_ihg6t")
+
+[node name="SightPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1280812902]
+stream = ExtResource("3_skqvj")
+
+[node name="DiePlayer" type="AudioStreamPlayer3D" parent="." unique_id=397556885]
+stream = ExtResource("4_kd7fg")
+
+[node name="AttackPlayer" type="AudioStreamPlayer3D" parent="." unique_id=2061456636]
+stream = ExtResource("5_6qs4v")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]

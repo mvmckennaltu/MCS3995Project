@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://qg3qvhf4ku8k" path="res://LevelAssetBlocks/roof_3x3.tscn" id="30_dohxd"]
 [ext_resource type="PackedScene" uid="uid://dcc4ttrfgowhy" path="res://LevelAssetBlocks/roof_4x4.tscn" id="31_dohxd"]
 [ext_resource type="PackedScene" uid="uid://bmr4lkg5otdh2" path="res://LevelAssetBlocks/roof_2x_4.tscn" id="32_f06qp"]
+[ext_resource type="AudioStream" uid="uid://bn07rk50xul1r" path="res://Audio/Music/The Way Out.mp3" id="34_vwrck"]
 
 [sub_resource type="Resource" id="Resource_t1dhe"]
 script = ExtResource("3_dqvwb")
@@ -1066,6 +1067,12 @@ transform = Transform3D(1.9470717e-07, -1, -1.442476e-07, 8.7422784e-08, -1.3113
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1227590579]
 stream = SubResource("AudioStreamWAV_mt1ji")
 autoplay = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=421819594]
+stream = ExtResource("34_vwrck")
+volume_db = -0.137
+autoplay = true
+parameters/looping = true
 
 [connection signal="change_crosshair" from="Player" to="Control/Crosshair" method="_on_player_change_crosshair"]
 [connection signal="health_changed" from="Player" to="Control/HealthLabel" method="_on_player_health_changed"]

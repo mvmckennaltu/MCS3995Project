@@ -1,15 +1,9 @@
 [gd_scene format=3 uid="uid://b7cich04m4hk0"]
 
 [ext_resource type="Script" uid="uid://dnw3xdq4wtkjx" path="res://Level Scenes/level_exit.gd" id="1_vco5k"]
+[ext_resource type="PackedScene" uid="uid://c7jrlv0qwvcu" path="res://LevelAssets/Props_Teleporter_1.fbx" id="2_k52bw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wskqe"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_wskqe"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihg6t"]
-transparency = 1
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.7921569, 0.53333336, 0.5254902, 0.3882353)
 
 [node name="LevelExit" type="Node3D" unique_id=651262409]
 script = ExtResource("1_vco5k")
@@ -23,8 +17,5 @@ collision_mask = 7
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 shape = SubResource("SphereShape3D_wskqe")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D" unique_id=609639542]
-mesh = SubResource("SphereMesh_wskqe")
-surface_material_override/0 = SubResource("StandardMaterial3D_ihg6t")
-
-[connection signal="body_entered" from="Area3D" to="Area3D/CollisionShape3D/MeshInstance3D" method="_on_area_3d_body_entered"]
+[node name="Props_Teleporter_1" parent="Area3D/CollisionShape3D" unique_id=2018873003 instance=ExtResource("2_k52bw")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.5, 0)

@@ -5,6 +5,9 @@ extends EnemyBase
 @export var patrol_a : Node3D
 @export var patrol_b : Node3D
 @export var attack_damage = -25
+@onready var sight_player = $SightPlayer
+@onready var die_player = $DiePlayer
+var sound_played = false
 var chosen_target : String
 var patrol_target_position : Vector3
 signal searching
@@ -101,3 +104,9 @@ func get_damage():
 
 func get_damage_type():
 	return damage_type
+func update_dying(delta):
+	if sound_played == true:
+		return
+	else:
+		die_player.play()
+		sound_played = true

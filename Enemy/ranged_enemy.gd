@@ -5,7 +5,7 @@ extends EnemyBase
 @onready var bullet = load("uid://b5gulnbuw3xj7")
 @onready var shoot_point = $Pivot/EnemyModel/ShootPoint
 @export var attack_cooldown := 1.5
-
+var sound_played = false
 var can_attack := true
 var distance
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +21,7 @@ func update_idle(delta):
 	velocity.x = 0
 	velocity.z = 0
 	if player:
+		$SightPlayer.play()
 		state = EnemyState.CHASE
 
 func update_chase(delta):
@@ -47,6 +48,12 @@ func update_chase(delta):
 func update_attack(delta):
 	shoot()
 	
+func update_dying(delta):
+	if sound_played == true:
+		return
+	else:
+		$DiePlayer.play()
+		sound_played = true
 func shoot():
 	if !can_attack:
 		return
@@ -62,6 +69,7 @@ func shoot():
 	var target_pos = player.get_node("LockOnPoint").global_position
 	bullet_instance.direction = (target_pos - spawn_pos).normalized()
 	get_parent().add_child(bullet_instance)
+	$ShootPlayer.play()
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
 	if direction.length() < preferred_distance:
